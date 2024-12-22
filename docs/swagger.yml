@@ -1,0 +1,137 @@
+info:
+  title: e-commerce API
+  version: "1.0.0"
+  description: A API for managing e-commerce.
+
+servers:
+  - url: http://localhost:6587
+    description: Local server
+
+paths:
+  /user:
+    
+    get:
+      summary: Get all users
+      operationId: getUsers
+      responses:
+        "200":
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/model/UserModel"
+    
+    post:
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/model/UserModel"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/model/UserModel"
+        "400":
+          description: User with invalid infos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: User with infos already used
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidRequest"
+
+    patch:
+      summary: Update user
+      operationId: patchUsers
+      responses:
+        "200":
+          description: A list of user updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/model/UserModel"
+        "400":
+          description: User with invalid infos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+
+    delete:
+      summary: Delete user
+      operationId: deleteUsers
+      responses:
+        "200":
+          description: User deleted success 
+        "404":
+          description: User with invalid infos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+  
+  /user:
+    get:
+      summary: Get a specific user
+      operationId: getUser
+      parameters:
+        - name: userId
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The requested user
+          content:
+            application/json:
+              schema:
+                $ref: "#/model/UserModel"
+        "404":
+          description: User info not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFound"
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid user information"
+
+components:
+  schemas:
+    NotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Information not found"
+
+components:
+  schemas:
+    InvalidRequest:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid user information"

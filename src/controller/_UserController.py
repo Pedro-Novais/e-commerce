@@ -120,6 +120,7 @@ class UserController:
         
         except (
             Exception,
+            NotFoundError,
             OperationError
             ) as e:
             return error_handler(error=e)

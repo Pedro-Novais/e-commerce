@@ -19,10 +19,6 @@ def post_user():
 def login_user():
     return UserController(request=request).login_user()
 
-# @user_route.route('/logout', methods=['POST'])
-# def login_user():
-#     return UserController(request=request).login_user()
-
 #implementação pendente
 @user_route.route('/', methods=['PATCH'])
 @token_required

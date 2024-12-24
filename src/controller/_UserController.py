@@ -1,7 +1,7 @@
 from flask import Response, Request, jsonify
 from middleware.error_handler import error_handler
 
-from domains import (
+from interactor import (
     CreateUser,
     LoginUser,
     UpdateUser,

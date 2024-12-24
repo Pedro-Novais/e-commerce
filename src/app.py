@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from routes._Routes import Routes
-from database.initialize_db import initialize_database
+from config.initialize_db import initialize_database
 
 def main():
      app = Flask(__name__)

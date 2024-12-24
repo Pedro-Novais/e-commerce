@@ -1,7 +1,7 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from middleware.token_auth import token_required
 
-from domains.orders._CreateOrder import CreateOrder
+from interactor.orders._CreateOrder import CreateOrder
 from controller._UserController import UserController
 
 user_route = Blueprint('user', __name__)

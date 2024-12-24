@@ -1,4 +1,4 @@
-from database.conn import ConnDatabase
+from .Conn import ConnDatabase
 from model.AdressModel import Address
 
 class AddressRepository:

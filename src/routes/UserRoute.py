@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 from middleware.token_auth import token_required
 
-from interactor.orders._CreateOrder import CreateOrder
 from controller._UserController import UserController
 
 user_route = Blueprint('user', __name__)
@@ -20,10 +19,10 @@ def login_user():
     return UserController(request=request).login_user()
 
 #implementação pendente
-@user_route.route('/', methods=['PATCH'])
-@token_required
-def patch_user(userId):
-    return UserController(request=request).update_user(userId=userId)
+# @user_route.route('/', methods=['PATCH'])
+# @token_required
+# def patch_user(userId):
+#     return UserController(request=request).update_user(userId=userId)
 
 @user_route.route('/', methods=['DELETE'])
 @token_required

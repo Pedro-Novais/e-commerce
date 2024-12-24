@@ -6,3 +6,7 @@ from .user._DeleteUser import DeleteUser
 from .user._CreateAddress import CreateAddress
 from .user._UpdateAddress import UpdateAddress
 from .user._DeleteAddress import DeleteAddress
+
+from .products._CreateProduct import CreateProduct
+from .products._GetProduct import GetProduct
+from .products._GetProducts import GetProducts

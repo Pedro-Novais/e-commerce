@@ -12,6 +12,10 @@ class NotFoundError(CustomError):
     def __init__(self, message: str = "Recurso não encontrado"):
         super().__init__(message, status_code=404)
 
+class ParameterNotSend(CustomError):
+    def __init__(self, message: str = "Parametro obrigatório não enviado ao servidor!"):
+        super().__init__(message, status_code=404)
+
 class CredentialIncorrectError(CustomError):
     def __init__(self, message: str = "Credenciasi invalídas!"):
         super().__init__(message, status_code=400)

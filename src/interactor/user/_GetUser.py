@@ -12,7 +12,7 @@ class GetUser:
         user_repo = UserRepository()
 
         user = user_repo.get_user_by_id(user_id=self.id)
-
+        print(user.addresses)
         if not user:
             raise NotFoundError("Usuário não foi encontrado!")
         
@@ -20,6 +20,16 @@ class GetUser:
             "name": user.name,
             "email": user.email,
             "is_admin": user.is_admin,
-            "created_at": user.created_at.strftime("%d/%m/%Y")
+            "created_at": user.created_at.strftime("%d/%m/%Y"),
+            "address": [
+                {
+                    "street": address.street,
+                    "number": address.number,
+                    "city": address.city,
+                    "state": address.state,
+                    "zip_code": address.zip_code,
+                    "country": address.country
+                } for address in user.addresses
+            ]
         }
         return data

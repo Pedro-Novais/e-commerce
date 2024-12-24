@@ -1,3 +1,4 @@
+from sqlalchemy.orm import joinedload
 from .Conn import ConnDatabase
 from model.UserModel import User
 
@@ -11,7 +12,7 @@ class UserRepository:
         
     def get_user_by_id(self, user_id: int ):
         with self.conn.get_db_session() as db:
-            return db.query(User).filter(User.id == user_id).first()
+            return db.query(User).options(joinedload(User.addresses)).filter(User.id == user_id).first()
     
     def get_user_by_email(self, email: str ):
         with self.conn.get_db_session() as db:

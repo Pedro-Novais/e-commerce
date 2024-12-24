@@ -1,8 +1,8 @@
+import os
 from flask import Flask
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 
+from dotenv import load_dotenv
 from .config import Base
 
 from model import (
@@ -22,7 +22,8 @@ from model import (
 
 def initialize_database(app: Flask) -> None:
     try:
-        engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+        load_dotenv()
+        engine = create_engine(os.getenv('DATABASE_URL'))
         Base.metadata.create_all(bind=engine)
         print(Base.metadata.tables)
 

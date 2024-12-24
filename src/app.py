@@ -12,8 +12,6 @@ def main():
           methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
           supports_credentials=True
           )
-
-     app.config.from_pyfile('config/config.py')
      
      initialize_database(app=app)
 

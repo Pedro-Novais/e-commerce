@@ -88,7 +88,7 @@ class UserController:
             OperationError
             ) as e:
             return error_handler(error=e)
-    
+        
     def add_address_from_user(self, userId: int):
         try:
             action = CreateAddress(request=self.request).action(userId=userId)

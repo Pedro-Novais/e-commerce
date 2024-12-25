@@ -8,5 +8,5 @@ from .user._UpdateAddress import UpdateAddress
 from .user._DeleteAddress import DeleteAddress
 
 from .products._CreateProduct import CreateProduct
-from .products._GetProduct import GetOneProduct
+from .products._GetOneProduct import GetOneProduct
 from .products._GetProducts import GetProducts

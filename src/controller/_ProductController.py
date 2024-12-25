@@ -21,8 +21,17 @@ class ProductController:
     def __init__(self, request: Request):
         self.request = request
 
-    def get_one_products(self):
-        pass
+    def get_one_product(self, product_id: int):
+        try:
+            action = GetOneProduct(productId=product_id).action()
+            return jsonify(action), 201
+        
+        except (
+            Exception,
+            NotFoundError,
+            OperationError
+            ) as e:
+            return error_handler(error=e)
 
     def get_products(self):
         try:

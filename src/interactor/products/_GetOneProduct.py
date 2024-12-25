@@ -1,0 +1,31 @@
+from repository._ProductRepository import ProductRepository
+
+from custom_exceptions._CustomExceptions import (
+    NotFoundError,
+    FormatInvalidError
+    )
+
+class GetOneProduct:
+    def __init__(self, productId):
+        self.productId = productId
+
+        if not self.productId:
+            raise NotFoundError("Parametros obrigatórios não foram enviados!")
+
+    def action(self):
+        product_repo = ProductRepository()
+
+        product = product_repo.get_by_id(id=self.productId)
+
+        if not product:
+            raise NotFoundError("Nenhum produto identificado!")
+        
+        data = {
+            "name": product.name,
+            "description": product.description,
+            "price": product.price,
+            "stock_quantity": product.stock_quantity,
+            "is_digital": "not implemented"
+        }
+
+        return data

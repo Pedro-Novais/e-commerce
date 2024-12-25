@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime, DECIMAL, func
+from sqlalchemy import Column, String, Integer, Text, ForeignKey, DateTime, DECIMAL, JSON, BOOLEAN, func
 from sqlalchemy.orm import relationship
 from config.config import Base
 
@@ -10,6 +10,9 @@ class Product(Base):
     description = Column(Text)
     price = Column(DECIMAL(10, 2), nullable=False)
     stock_quantity = Column(Integer, default=0)
+    is_digital = Column(BOOLEAN, default=False, nullable=False)
+    custom_properties = Column(JSON, default=list)
+    images = Column(JSON, default=list)
     category_id = Column(Integer, ForeignKey('categories.id'))
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())

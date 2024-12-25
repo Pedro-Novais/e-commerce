@@ -22,8 +22,11 @@ class ProductRepository(BaseRepository):
             name: str,
             description: str,
             price: float,
-            category_id = int,
+            category_id: int,
+            custom_properties: list,
+            images: list = [],
             stock_quantity: int = 0,
+            is_digital: bool = False
             ):
         with self.conn.get_db_session() as db:
             new_product = Product(
@@ -31,6 +34,9 @@ class ProductRepository(BaseRepository):
                 description=description,
                 price=price,
                 stock_quantity=stock_quantity,
+                is_digital = is_digital,
+                custom_properties=custom_properties,
+                images=images,
                 category_id=category_id
             )
 

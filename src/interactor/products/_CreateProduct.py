@@ -30,6 +30,12 @@ class CreateProduct:
         
         self.stock = request.get("stock_quantity", 0)
 
+        self.is_digital = request.get("is_digital", False)
+
+        self.custom_properties = request.get("custom_properties", [])
+
+        self.images = request.get("images", [])
+
         self.category = request.get("category", None)
 
     def action(self):
@@ -46,7 +52,10 @@ class CreateProduct:
             description=self.description,
             price=self.price,
             category_id=self.category,
-            stock_quantity=self.stock
+            stock_quantity=self.stock,
+            is_digital=self.is_digital,
+            custom_properties=self.custom_properties,
+            images=self.images
         )
 
         if not create_product:

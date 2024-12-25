@@ -18,14 +18,16 @@ class GetOneProduct:
         product = product_repo.get_by_id(id=self.productId)
 
         if not product:
-            raise NotFoundError("Nenhum produto identificado!")
+            raise NotFoundError("Nenhum produto foi encontrado!")
         
         data = {
             "name": product.name,
             "description": product.description,
             "price": product.price,
             "stock_quantity": product.stock_quantity,
-            "is_digital": "not implemented"
+            "is_digital": product.is_digital,
+            "custom_properties": product.custom_properties,
+            "images": product.images,
         }
 
         return data

@@ -20,6 +20,9 @@ class GetProducts:
             "description": product.description,
             "price": product.price,
             "stock_quantity": product.stock_quantity,
+            "is_digital": product.is_digital,
+            "custom_properties": product.custom_properties,
+            "images": product.images,
             "category": product.category.name
             }
             for product in products

@@ -5,7 +5,6 @@ from custom_exceptions._CustomExceptions import (
     NotFoundError,
     FormatInvalidError,
     ParameterNotSend,
-    InfoAlreadyInUseError,
     OperationError
 )
 

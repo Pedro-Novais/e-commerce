@@ -44,3 +44,49 @@ class ProductRepository(BaseRepository):
             db.commit()
             db.refresh(new_product)
             return new_product
+        
+    def update_product(
+            self,
+            product_id: int = None,
+            name: str = None,
+            description: str = None,
+            price: float = None,
+            category_id: int = None,
+            custom_properties: list = None,
+            images: list = None,
+            stock_quantity: int = None,
+            is_digital: bool = None
+            ):
+        with self.conn.get_db_session() as db:
+            product = db.query(Product).filter(Product.id == product_id).first()
+
+            if not product:
+                return "AnyData"
+            
+            if name:
+                product.name = name
+            
+            if description:
+                product.description = description
+
+            if price:
+                product.price = price
+
+            if category_id:
+                product.category_id = category_id
+
+            if custom_properties:
+                product.custom_properties = custom_properties
+
+            if images:
+                product.images = images
+            
+            if stock_quantity:
+                product.stock_quantity = stock_quantity
+
+            if is_digital:
+                product.is_digital = is_digital
+
+            db.commit()
+            db.refresh(product)
+            return product

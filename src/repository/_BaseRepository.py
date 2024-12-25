@@ -16,7 +16,7 @@ class BaseRepository:
             data = db.query(self.Data).filter(self.Data.id == id).first()
 
             if not data:
-                return None
+                return "AnyData"
             
             db.delete(data)
             db.commit()

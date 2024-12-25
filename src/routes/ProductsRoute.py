@@ -12,7 +12,6 @@ def get_products():
     return ProductController(request=request).get_products()
 
 @product_route.route('/<productId>', methods=['GET'])
-# @token_required
 def get_one_product(productId: int):
     return ProductController(request=request).get_one_product(product_id=productId)
 
@@ -26,7 +25,7 @@ def add_product():
 @token_required
 @admin_required
 def delete_product(productId: int):
-    return ProductController(request=request).delete_product()
+    return ProductController(request=request).delete_product(productId=productId)
 
 @product_route.route('/<productId>', methods=['PUT'])
 @token_required

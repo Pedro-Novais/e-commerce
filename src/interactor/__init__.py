@@ -10,3 +10,4 @@ from .user._DeleteAddress import DeleteAddress
 from .products._CreateProduct import CreateProduct
 from .products._GetOneProduct import GetOneProduct
 from .products._GetProducts import GetProducts
+from .products._DeleteProduct import DeleteProduct

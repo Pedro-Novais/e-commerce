@@ -5,6 +5,7 @@ from interactor import (
     GetOneProduct,
     GetProducts,
     CreateProduct,
+    DeleteProduct
 )
 
 from custom_exceptions._CustomExceptions import (
@@ -59,8 +60,17 @@ class ProductController:
             ) as e:
             return error_handler(error=e)
 
-    def delete_product(self):
-        pass
+    def delete_product(self, productId: int):
+        try:
+            action = DeleteProduct(product_id=productId).action()
+            return jsonify({"msg": action}), 201
+        
+        except (
+            Exception,
+            ParameterNotSend,
+            OperationError
+            ) as e:
+            return error_handler(error=e)
 
     def edit_product(self):
         pass

@@ -2,7 +2,7 @@ from flask import Request, jsonify
 from middleware.error_handler import error_handler
 
 from interactor import (
-    GetProduct,
+    GetOneProduct,
     GetProducts,
     CreateProduct,
 )
@@ -21,11 +21,20 @@ class ProductController:
     def __init__(self, request: Request):
         self.request = request
 
-    def get_products(self):
+    def get_one_products(self):
         pass
 
-    def get_product(self, product_id):
-        pass
+    def get_products(self):
+        try:
+            action = GetProducts().action()
+            return jsonify(action), 201
+        
+        except (
+            Exception,
+            NotFoundError,
+            OperationError
+            ) as e:
+            return error_handler(error=e)
 
     def add_product(self):
         try:
@@ -36,6 +45,7 @@ class ProductController:
             Exception,
             ParameterNotSend,
             NotFoundError,
+            FormatInvalidError,
             OperationError
             ) as e:
             return error_handler(error=e)

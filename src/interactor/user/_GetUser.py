@@ -12,7 +12,7 @@ class GetUser:
         user_repo = UserRepository()
 
         user = user_repo.get_user_by_id(user_id=self.id)
-        print(user.addresses)
+
         if not user:
             raise NotFoundError("Usuário não foi encontrado!")
         

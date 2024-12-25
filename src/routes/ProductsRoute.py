@@ -8,14 +8,13 @@ from controller._ProductController import ProductController
 product_route = Blueprint('product', __name__)
 
 @product_route.route('/', methods=['GET'])
-@token_required
 def get_products():
     return ProductController(request=request).get_products()
 
 @product_route.route('/<productId>', methods=['GET'])
 @token_required
-def get_product(productId: int):
-    return ProductController(request=request).get_product(product_id=productId)
+def get_one_product(productId: int):
+    return ProductController(request=request).get_one_products(product_id=productId)
 
 @product_route.route('/', methods=['POST'])
 @token_required

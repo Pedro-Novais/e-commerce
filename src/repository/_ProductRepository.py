@@ -1,3 +1,4 @@
+from sqlalchemy.orm import joinedload
 from .Conn import ConnDatabase
 from ._BaseRepository import BaseRepository
 from model.ProductModel import Product
@@ -10,6 +11,11 @@ class ProductRepository(BaseRepository):
             DataModel=Product,
             conn=self.conn
         )
+
+    def get_all_products(self):
+        with self.conn.get_db_session() as db:
+            return db.query(Product).options(joinedload(Product.category)).all()
+    
 
     def create_product(
             self,

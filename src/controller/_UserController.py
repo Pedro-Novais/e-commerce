@@ -92,7 +92,7 @@ class UserController:
         
     def add_address_from_user(self, userId: int):
         try:
-            action = CreateAddress(request=self.request).action(userId=userId)
+            action = CreateAddress(request=self.request, shop_name=self.shop_name).action(userId=userId)
             return jsonify(action), 201
         
         except (

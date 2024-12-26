@@ -23,10 +23,10 @@ def login_user(subdomain):
     return UserController(request=request, shop_name=subdomain).login_user()
 
 #implementação pendente
-# @user_route.route('/', methods=['PATCH'])
-# @token_required
-# def patch_user(userId):
-#     return UserController(request=request).update_user(userId=userId)
+@user_route.route('/', methods=['PATCH'])
+@token_required
+def patch_user(userId):
+    return UserController(request=request).update_user(userId=userId)
 
 @user_route.route('/', subdomain="<subdomain>", methods=['DELETE'])
 @handle_subdomain
@@ -34,10 +34,11 @@ def login_user(subdomain):
 def delete_user(userId: int, subdomain: str):
     return UserController(request=request, shop_name=subdomain).delete_user(userId=userId)
 
-@user_route.route('/address', methods=['POST'])
+@user_route.route('/address', subdomain="<subdomain>", methods=['POST'])
+@handle_subdomain
 @token_required
-def create_address(userId):
-    return UserController(request=request).add_address_from_user(userId=userId)
+def create_address(userId, subdomain):
+    return UserController(request=request, shop_name=subdomain).add_address_from_user(userId=userId)
 
 @user_route.route('/address/<addressId>', methods=['PUT'])
 @token_required

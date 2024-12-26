@@ -11,11 +11,12 @@ class AddressRepository:
     
     def create_address(
             self,
-            user_id: int, 
+            user_id: int,
+            shop_name: str, 
             street: str,
             number: int,
             city: str,
-            state: str,
+            state: str, 
             zip_code: str,
             country: str = "Brasil"
         ):
@@ -23,6 +24,7 @@ class AddressRepository:
 
             new_address = Address(
                 user_id=user_id,
+                shop_name=shop_name,
                 street=street,
                 number=number,
                 city=city,

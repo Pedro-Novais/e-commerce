@@ -9,7 +9,8 @@ from custom_exceptions._CustomExceptions import (
 
 
 class CreateAddress:
-    def __init__(self, request: Request):
+    def __init__(self, request: Request, shop_name: str):
+        self.shop = shop_name
         self.request = request.get_json()
 
         self.street = self.request.get("street")
@@ -37,6 +38,7 @@ class CreateAddress:
 
         new_address = address_repo.create_address(
             user_id=userId,
+            shop_name=self.shop,
             street=self.street,
             number=self.number,
             city=self.city,

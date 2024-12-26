@@ -14,8 +14,10 @@ class Product(Base):
     custom_properties = Column(JSON, default=list)
     images = Column(JSON, default=list)
     category_id = Column(Integer, ForeignKey('categories.id'))
+    shop_name = Column(String, ForeignKey('shops.name'))
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
     category = relationship("Category", back_populates="products")
     order_items = relationship("OrderItem", back_populates="product")
+    shop = relationship("Shop", back_populates="products")

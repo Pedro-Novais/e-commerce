@@ -7,6 +7,7 @@ class Payment(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     order_id = Column(Integer, ForeignKey('orders.id'))
+    shop_name = Column(String, ForeignKey('shops.name')) 
     payment_method = Column(String(50), nullable=False)  
     status = Column(String(50), default='PENDING')
     transaction_id = Column(String(255))
@@ -14,3 +15,4 @@ class Payment(Base):
     created_at = Column(DateTime, default=func.now())
 
     order = relationship("Order", back_populates="payment")
+    shop = relationship("Shop", back_populates="payments")

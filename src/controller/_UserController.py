@@ -22,8 +22,9 @@ from custom_exceptions._CustomExceptions import (
     )
 
 class UserController:
-    def __init__(self, request):
+    def __init__(self, request, shop_name):
         self.request = request
+        self.shop_name = shop_name
     
     def get_user(self, userId: int) -> Response:
         try:
@@ -39,7 +40,7 @@ class UserController:
 
     def create_user(self) -> Response:
         try:
-            action = CreateUser(request=self.request).action()
+            action = CreateUser(request=self.request, shop_name=self.shop_name).action()
             return jsonify({"msg": action}), 200
         
         except (

@@ -6,9 +6,11 @@ class Category(Base):
     __tablename__ = 'categories'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+    shop_name = Column(String, ForeignKey('shops.name'), nullable=False) 
     name = Column(String(150), nullable=False, unique=True)
     description = Column(String(255))
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
     products = relationship("Product", back_populates="category")
+    shop = relationship("Shop", back_populates="categories")

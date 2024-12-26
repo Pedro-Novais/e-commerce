@@ -20,6 +20,7 @@ class UserRepository:
         
     def create_user(
             self,
+            shop_name: str,
             name: str,
             email: str,
             password: str,
@@ -31,7 +32,8 @@ class UserRepository:
                     name=name,
                     email=email,
                     password=password,
-                    is_admin=is_admin
+                    is_admin=is_admin,
+                    shop_name = shop_name
                 )
 
                 db.add(new_user)

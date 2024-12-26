@@ -17,7 +17,8 @@ from custom_exceptions._CustomExceptions import (
 )
 
 class CreateUser:
-    def __init__(self, request: Request):
+    def __init__(self, request: Request, shop_name: str):
+        self.shop = shop_name
         self.request = request.get_json()
 
         self.name = self.request.get("name")
@@ -54,6 +55,7 @@ class CreateUser:
         password_criptography = hash_password(password=self.password)
 
         new_user = user_repo.create_user(
+            shop_name=self.shop,
             name=self.name,
             email=self.email,
             password=password_criptography,

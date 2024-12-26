@@ -1,18 +1,20 @@
 from flask import Blueprint, request
 from middleware.token_auth import token_required
+from middleware.shop_identifier import handle_subdomain
 
 from controller._UserController import UserController
 
 user_route = Blueprint('user', __name__)
 
-@user_route.route('/', methods=['GET'])
+@user_route.route('/', subdomain="<subdomain>", methods=['GET'])
 @token_required
-def get_user(userId):
+def get_user(userId, subdomain = "teste"):
     return UserController(request=request).get_user(userId=userId)
 
-@user_route.route('/', methods=['POST'])
-def post_user():
-    return UserController(request=request).create_user()
+@user_route.route('/', subdomain="<subdomain>", methods=['POST'])
+@handle_subdomain
+def post_user(subdomain):
+    return UserController(request=request, shop_name=subdomain).create_user()
 
 @user_route.route('/login', methods=['POST'])
 def login_user():

@@ -7,6 +7,7 @@ class Address(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('users.id'))
+    shop_name = Column(String, ForeignKey('shops.name')) 
     street = Column(String(150), nullable=False)
     number = Column(Integer, nullable=False)
     city = Column(String(100), nullable=False)
@@ -17,3 +18,4 @@ class Address(Base):
 
     user = relationship("User", back_populates="addresses")
     orders = relationship("Order", back_populates="address")
+    shop = relationship("Shop", back_populates="addresses")

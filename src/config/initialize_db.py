@@ -3,6 +3,8 @@ from flask import Flask
 from sqlalchemy import create_engine
 
 from dotenv import load_dotenv
+
+from model import CartItemModel
 from .config import Base
 
 from model import (
@@ -15,7 +17,9 @@ from model import (
     InventoryModel,
     OrderItemModel,
     OrderModel,
-    CategoryModel
+    CategoryModel,
+    CartModel,
+    ShopModel
 )
 
 
@@ -25,7 +29,7 @@ def initialize_database(app: Flask) -> None:
         load_dotenv()
         engine = create_engine(os.getenv('DATABASE_URL'))
         Base.metadata.create_all(bind=engine)
-        print(Base.metadata.tables)
+        # print(Base.metadata.tables)
 
     except Exception as e:
         print("algum erro ocorreu ao inicializar as tabelas, erro; {}".format(e))

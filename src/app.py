@@ -5,7 +5,11 @@ from routes._Routes import Routes
 from config.initialize_db import initialize_database
 
 def main():
-     app = Flask(__name__)
+     app = Flask(__name__, subdomain_matching=True)
+
+     app.config['SERVER_NAME'] = 'example.local:5000'
+     app.config['APPLICATION_ROOT'] = '/'
+
      CORS(
           app, resources={r"/api/*": {"origins": "*"}}, 
           headers=['Content-Type', 'Authorization'],
@@ -18,7 +22,11 @@ def main():
      routes = Routes(app) 
      routes.start_routes()
 
-     app.run(debug=True, port=6587)
+     app.run(debug=True, host="0.0.0.0", port=5000)
 
 if __name__ == "__main__":
-     main()
+     try:
+          main()
+     
+     except Exception as e:
+          print("Erro ao inicializar a aplicação, erro: {}".format(e))

@@ -16,3 +16,4 @@ class Address(Base):
     created_at = Column(DateTime, default=func.now())
 
     user = relationship("User", back_populates="addresses")
+    orders = relationship("Order", back_populates="address")

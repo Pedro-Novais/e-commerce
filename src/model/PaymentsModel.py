@@ -7,7 +7,7 @@ class Payment(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     order_id = Column(Integer, ForeignKey('orders.id'))
-    payment_method = Column(String(50), nullable=False)  # cartão, PIX, boleto
+    payment_method = Column(String(50), nullable=False)  
     status = Column(String(50), default='PENDING')
     transaction_id = Column(String(255))
     paid_at = Column(DateTime)

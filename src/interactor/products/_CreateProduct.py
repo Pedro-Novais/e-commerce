@@ -11,7 +11,8 @@ from custom_exceptions._CustomExceptions import (
 from flask import Request
 
 class CreateProduct:
-    def __init__(self, request: Request):
+    def __init__(self, request: Request, shop_name: str):
+        self.shop = shop_name
         request = request.get_json()
 
         self.name = request.get("name")
@@ -41,7 +42,7 @@ class CreateProduct:
         product_repo = ProductRepository()
         category_repo = CategoryRepository()
 
-        category_valid = category_repo.get_by_id(id=self.category)
+        category_valid = category_repo.get_by_id(id=self.category, shop=self.shop)
 
         if not category_valid:
             raise NotFoundError("Categoria utilizada no cadastro, não foi encontrada!")
@@ -54,7 +55,8 @@ class CreateProduct:
             stock_quantity=self.stock,
             is_digital=self.is_digital,
             custom_properties=self.custom_properties,
-            images=self.images
+            images=self.images,
+            shop=self.shop
         )
 
         if not create_product:

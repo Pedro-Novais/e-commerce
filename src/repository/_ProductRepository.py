@@ -12,13 +12,14 @@ class ProductRepository(BaseRepository):
             conn=self.conn
         )
 
-    def get_all_products(self):
+    def get_all_products(self, shop: str):
         with self.conn.get_db_session() as db:
-            return db.query(Product).options(joinedload(Product.category)).all()
+            return db.query(Product).filter(Product.shop_name == shop).options(joinedload(Product.category)).all()
     
 
     def create_product(
             self,
+            shop: str,
             name: str,
             description: str,
             price: float,
@@ -30,14 +31,15 @@ class ProductRepository(BaseRepository):
             ):
         with self.conn.get_db_session() as db:
             new_product = Product(
-                name=name,
-                description=description,
-                price=price,
-                stock_quantity=stock_quantity,
+                shop_name = shop,
+                name = name,
+                description = description,
+                price = price,
+                stock_quantity = stock_quantity,
                 is_digital = is_digital,
-                custom_properties=custom_properties,
-                images=images,
-                category_id=category_id
+                custom_properties = custom_properties,
+                images = images,
+                category_id = category_id
             )
 
             db.add(new_product)

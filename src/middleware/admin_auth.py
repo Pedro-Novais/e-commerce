@@ -9,8 +9,10 @@ def admin_required(f):
     @wraps(f)
     def decorated(user_id, *args, **kwargs): 
         try:
+            subdomain = kwargs.get('subdomain')
+
             user_repo = UserRepository()
-            user = user_repo.get_user_by_id(user_id=user_id)
+            user = user_repo.get_user_by_id(user_id=user_id, shop=subdomain)
 
             if not user.is_admin:
                 return jsonify({"msg": "Acesso Negado! Permissão de administrador necessária."}), 403

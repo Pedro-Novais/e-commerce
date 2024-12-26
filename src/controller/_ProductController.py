@@ -20,7 +20,8 @@ from custom_exceptions._CustomExceptions import (
     )
 
 class ProductController:
-    def __init__(self, request: Request):
+    def __init__(self, request: Request, shop_name: str):
+        self.shop_name = shop_name
         self.request = request
 
     def get_one_product(self, product_id: int):
@@ -37,7 +38,7 @@ class ProductController:
 
     def get_products(self):
         try:
-            action = GetProducts().action()
+            action = GetProducts(shop_name=self.shop_name).action()
             return jsonify(action), 201
         
         except (
@@ -49,7 +50,7 @@ class ProductController:
 
     def add_product(self):
         try:
-            action = CreateProduct(request=self.request).action()
+            action = CreateProduct(request=self.request, shop_name=self.shop_name).action()
             return jsonify({"msg": action}), 201
         
         except (

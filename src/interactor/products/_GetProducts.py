@@ -3,13 +3,13 @@ from repository._ProductRepository import ProductRepository
 from custom_exceptions._CustomExceptions import NotFoundError
 
 class GetProducts:
-    def __init__(self):
-        pass
+    def __init__(self, shop_name: str):
+        self.shop = shop_name
 
     def action(self):
         product_repo = ProductRepository()
 
-        products = product_repo.get_all_products()
+        products = product_repo.get_all_products(shop=self.shop)
 
         if not products:
             raise NotFoundError("Produtos não foram encontrados!")

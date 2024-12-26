@@ -1,29 +1,33 @@
 from flask import Blueprint, request
 from middleware.token_auth import token_required
 from middleware.admin_auth import admin_required
+from middleware.shop_identifier import handle_subdomain
 
 from controller._ProductController import ProductController
 
 product_route = Blueprint('product', __name__)
 
-@product_route.route('/', methods=['GET'])
-def get_products():
-    return ProductController(request=request).get_products()
+@handle_subdomain
+@product_route.route('/', subdomain="<subdomain>", methods=['GET'])
+def get_products(subdomain):
+    return ProductController(request=request, shop_name=subdomain).get_products()
 
 @product_route.route('/<productId>', methods=['GET'])
 def get_one_product(productId: int):
     return ProductController(request=request).get_one_product(product_id=productId)
 
-@product_route.route('/', methods=['POST'])
+@product_route.route('/', subdomain="<subdomain>", methods=['POST'])
+@handle_subdomain
 @token_required
 @admin_required
-def add_product():
-    return ProductController(request=request).add_product()
+def add_product(subdomain):
+    return ProductController(request=request, shop_name=subdomain).add_product()
 
-@product_route.route('/<productId>', methods=['DELETE'])
+@product_route.route('/<productId>', subdomain="<subdomain>", methods=['DELETE'])
+@handle_subdomain
 @token_required
 @admin_required
-def delete_product(productId: int):
+def delete_product(productId: int, subdomain):
     return ProductController(request=request).delete_product(productId=productId)
 
 @product_route.route('/<productId>', methods=['PATCH'])

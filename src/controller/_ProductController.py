@@ -64,7 +64,7 @@ class ProductController:
 
     def delete_product(self, productId: int):
         try:
-            action = DeleteProduct(product_id=productId).action()
+            action = DeleteProduct(product_id=productId, shop_name=self.shop_name).action()
             return jsonify({"msg": action}), 201
         
         except (

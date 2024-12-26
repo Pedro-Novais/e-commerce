@@ -6,7 +6,8 @@ from custom_exceptions._CustomExceptions import (
 )
 
 class DeleteProduct:
-    def __init__(self, product_id: int):
+    def __init__(self, product_id: int, shop_name: str):
+        self.shop = shop_name
         self.product_id = product_id
 
         if not self.product_id:
@@ -15,7 +16,7 @@ class DeleteProduct:
     def action(self):
         product_repo = ProductRepository()
 
-        delete_product = product_repo.delete(id=self.product_id)
+        delete_product = product_repo.delete(id=self.product_id, shop=self. shop)
 
         if not delete_product:
             raise OperationError("Erro ao deletar produto!")

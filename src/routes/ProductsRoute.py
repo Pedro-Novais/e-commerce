@@ -29,7 +29,7 @@ def add_product(subdomain):
 @token_required
 @admin_required
 def delete_product(productId: int, subdomain):
-    return ProductController(request=request).delete_product(productId=productId)
+    return ProductController(request=request, shop_name=subdomain).delete_product(productId=productId)
 
 @product_route.route('/<productId>', methods=['PATCH'])
 @token_required

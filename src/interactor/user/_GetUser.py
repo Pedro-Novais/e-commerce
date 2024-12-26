@@ -5,13 +5,14 @@ from custom_exceptions._CustomExceptions import NotFoundError
 
 
 class GetUser:
-    def __init__(self, userId) -> str:
+    def __init__(self, userId: int, shop_name: str) -> str:
         self.id = userId
+        self.shop = shop_name
 
     def action(self):
         user_repo = UserRepository()
 
-        user = user_repo.get_user_by_id(user_id=self.id)
+        user = user_repo.get_user_by_id(user_id=self.id, shop=self.shop)
 
         if not user:
             raise NotFoundError("Usuário não foi encontrado!")

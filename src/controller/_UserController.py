@@ -28,7 +28,7 @@ class UserController:
     
     def get_user(self, userId: int) -> Response:
         try:
-            action = GetUser(userId=userId).action()
+            action = GetUser(userId=userId, shop_name=self.shop_name).action()
             return jsonify(action), 201
         
         except (

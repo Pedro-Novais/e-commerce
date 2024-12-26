@@ -10,9 +10,9 @@ class UserRepository:
         with self.conn.get_db_session() as db:
             return db.query(User).all()
         
-    def get_user_by_id(self, user_id: int ):
+    def get_user_by_id(self, user_id: int, shop: str):
         with self.conn.get_db_session() as db:
-            return db.query(User).options(joinedload(User.addresses)).filter(User.id == user_id).first()
+            return db.query(User).options(joinedload(User.addresses)).filter(User.id == user_id).filter(User.shop_name == shop).first()
     
     def get_user_by_email(self, email: str, shop: str ):
         with self.conn.get_db_session() as db:

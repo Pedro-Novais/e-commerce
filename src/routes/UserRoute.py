@@ -7,9 +7,10 @@ from controller._UserController import UserController
 user_route = Blueprint('user', __name__)
 
 @user_route.route('/', subdomain="<subdomain>", methods=['GET'])
+@handle_subdomain
 @token_required
-def get_user(userId, subdomain = "teste"):
-    return UserController(request=request).get_user(userId=userId)
+def get_user(userId: int, subdomain: str):
+    return UserController(request=request, shop_name=subdomain).get_user(userId=userId)
 
 @user_route.route('/', subdomain="<subdomain>", methods=['POST'])
 @handle_subdomain

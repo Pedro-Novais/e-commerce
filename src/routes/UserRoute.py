@@ -46,7 +46,8 @@ def create_address(userId, subdomain):
 def update_address(userId, addressId, subdomain):
     return UserController(request=request, shop_name=subdomain).update_address_from_user(userId=userId, address_id=addressId)
 
-@user_route.route('/address/<addressId>', methods=['DELETE'])
+@user_route.route('/address/<addressId>', subdomain="<subdomain>", methods=['DELETE'])
+@handle_subdomain
 @token_required
-def delete_address(userId, addressId):
-    return UserController(request=request).delete_address_from_user(user_id=userId, address_id=addressId)
+def delete_address(userId, addressId, subdomain):
+    return UserController(request=request, shop_name=subdomain).delete_address_from_user(user_id=userId, address_id=addressId)

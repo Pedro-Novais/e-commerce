@@ -116,7 +116,7 @@ class UserController:
 
     def delete_address_from_user(self, user_id: int, address_id: int) -> Response:
         try:
-            action = DeleteAddress(user_id=user_id, address_id=address_id).action()
+            action = DeleteAddress(user_id=user_id, address_id=address_id, shop_name=self.shop_name).action()
             return jsonify({"msg": action}), 201
         
         except (

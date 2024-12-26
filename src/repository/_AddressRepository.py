@@ -1,9 +1,15 @@
 from .Conn import ConnDatabase
+from ._BaseRepository import BaseRepository
 from model.AdressModel import Address
 
-class AddressRepository:
+class AddressRepository(BaseRepository):
     def __init__(self):
         self.conn = ConnDatabase()
+
+        super().__init__(
+            DataModel=Address,
+            conn=self.conn
+        )
 
     def get_all_address(self, user_id: int):
         with self.conn.get_db_session() as db:
@@ -74,12 +80,12 @@ class AddressRepository:
             db.refresh(address)
             return address
         
-    def delete_address(self,  user_id: int, address_id: int):
+    def delete_address(self,  user_id: int, address_id: int, shop_name: str):
         with self.conn.get_db_session() as db:
-            address = db.query(Address).filter(Address.id == address_id, Address.user_id == user_id).first()
+            address = db.query(Address).filter(Address.id == address_id).filter(Address.user_id == user_id).filter(Address.shop_name == shop_name).first()
 
             if not address:
-                return None
+                return "AnyData"
             
             db.delete(address)
             db.commit()

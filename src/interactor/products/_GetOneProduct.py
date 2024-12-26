@@ -6,7 +6,8 @@ from custom_exceptions._CustomExceptions import (
     )
 
 class GetOneProduct:
-    def __init__(self, productId):
+    def __init__(self, productId: int, shop_name: str):
+        self.shop = shop_name
         self.productId = productId
 
         if not self.productId:
@@ -15,7 +16,7 @@ class GetOneProduct:
     def action(self):
         product_repo = ProductRepository()
 
-        product = product_repo.get_by_id(id=self.productId)
+        product = product_repo.get_by_id(id=self.productId, shop=self.shop)
 
         if not product:
             raise NotFoundError("Nenhum produto foi encontrado!")

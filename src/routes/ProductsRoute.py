@@ -12,9 +12,10 @@ product_route = Blueprint('product', __name__)
 def get_products(subdomain):
     return ProductController(request=request, shop_name=subdomain).get_products()
 
-@product_route.route('/<productId>', methods=['GET'])
-def get_one_product(productId: int):
-    return ProductController(request=request).get_one_product(product_id=productId)
+@product_route.route('/<productId>', subdomain="<subdomain>", methods=['GET'])
+@handle_subdomain
+def get_one_product(productId: int, subdomain: str):
+    return ProductController(request=request, shop_name=subdomain).get_one_product(product_id=productId)
 
 @product_route.route('/', subdomain="<subdomain>", methods=['POST'])
 @handle_subdomain

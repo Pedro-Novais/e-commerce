@@ -26,7 +26,7 @@ class ProductController:
 
     def get_one_product(self, product_id: int):
         try:
-            action = GetOneProduct(productId=product_id).action()
+            action = GetOneProduct(productId=product_id, shop_name=self.shop_name).action()
             return jsonify(action), 201
         
         except (

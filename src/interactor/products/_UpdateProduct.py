@@ -12,7 +12,8 @@ from custom_exceptions._CustomExceptions import (
 )
 
 class UpdateProduct:
-    def __init__(self, request: Request, productId: int):
+    def __init__(self, request: Request, productId: int, shop_name: str):
+        self.shop = shop_name
         request = request.get_json()
 
         self.productId = productId
@@ -56,12 +57,13 @@ class UpdateProduct:
         category_repo = CategoryRepository()
 
         if self.category:
-            category_valid = category_repo.get_by_id(id=self.category)
+            category_valid = category_repo.get_by_id(id=self.category, shop=self.shop)
 
             if not category_valid:
                 raise NotFoundError("Categoria utilizada na atualização do item, não foi encontrada!")
         
         update_product = product_repo.update_product(
+            shop=self.shop,
             product_id=self.productId,
             name=self.name,
             description=self.description,

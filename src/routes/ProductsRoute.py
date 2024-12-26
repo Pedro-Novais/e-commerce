@@ -31,8 +31,9 @@ def add_product(subdomain):
 def delete_product(productId: int, subdomain):
     return ProductController(request=request, shop_name=subdomain).delete_product(productId=productId)
 
-@product_route.route('/<productId>', methods=['PATCH'])
+@product_route.route('/<productId>', subdomain="<subdomain>", methods=['PATCH'])
+@handle_subdomain
 @token_required
 @admin_required
-def edit_product(productId: int):
-    return ProductController(request=request).edit_product(productId=productId)
+def edit_product(productId: int, subdomain):
+    return ProductController(request=request, shop_name=subdomain).edit_product(productId=productId)

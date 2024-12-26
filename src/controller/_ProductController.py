@@ -76,7 +76,7 @@ class ProductController:
 
     def edit_product(self, productId: int):
         try:
-            action = UpdateProduct(request=self.request, productId=productId).action()
+            action = UpdateProduct(request=self.request, productId=productId, shop_name=self.shop_name).action()
             return jsonify({"msg": action}), 201
         
         except (

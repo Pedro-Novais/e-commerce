@@ -49,6 +49,7 @@ class ProductRepository(BaseRepository):
         
     def update_product(
             self,
+            shop: str,
             product_id: int = None,
             name: str = None,
             description: str = None,
@@ -60,7 +61,7 @@ class ProductRepository(BaseRepository):
             is_digital: bool = None
             ):
         with self.conn.get_db_session() as db:
-            product = db.query(Product).filter(Product.id == product_id).first()
+            product = db.query(Product).filter(Product.id == product_id).filter(Product.shop_name == shop).first()
 
             if not product:
                 return "AnyData"

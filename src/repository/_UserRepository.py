@@ -14,9 +14,9 @@ class UserRepository:
         with self.conn.get_db_session() as db:
             return db.query(User).options(joinedload(User.addresses)).filter(User.id == user_id).first()
     
-    def get_user_by_email(self, email: str ):
+    def get_user_by_email(self, email: str, shop: str ):
         with self.conn.get_db_session() as db:
-            return db.query(User).filter(User.email == email).first()
+            return db.query(User).filter(User.email == email).filter(User.shop_name == shop).first()
         
     def create_user(
             self,

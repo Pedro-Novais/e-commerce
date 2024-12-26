@@ -16,9 +16,10 @@ def get_user(userId, subdomain = "teste"):
 def post_user(subdomain):
     return UserController(request=request, shop_name=subdomain).create_user()
 
-@user_route.route('/login', methods=['POST'])
-def login_user():
-    return UserController(request=request).login_user()
+@user_route.route('/login', subdomain="<subdomain>", methods=['POST'])
+@handle_subdomain
+def login_user(subdomain):
+    return UserController(request=request, shop_name=subdomain).login_user()
 
 #implementação pendente
 # @user_route.route('/', methods=['PATCH'])

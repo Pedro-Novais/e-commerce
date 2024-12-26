@@ -17,7 +17,8 @@ from custom_exceptions._CustomExceptions import (
 
 
 class LoginUser:
-    def __init__(self, request: Request) -> str:
+    def __init__(self, request: Request, shop_name: str) -> str:
+        self.shop = shop_name
         self.request = request.get_json()
         
         self.email = self.request.get("email")
@@ -34,7 +35,7 @@ class LoginUser:
     def action(self):
         user_repo = UserRepository()
 
-        credential_save = user_repo.get_user_by_email(email=self.email)
+        credential_save = user_repo.get_user_by_email(email=self.email, shop=self.shop)
 
         if not credential_save:
             raise NotFoundError("Email {email}, não está cadastrado!".format(email=self.email))

@@ -54,7 +54,7 @@ class UserController:
     
     def login_user(self) -> Response:
         try:
-            action = LoginUser(request=self.request).action()
+            action = LoginUser(request=self.request, shop_name=self.shop_name).action()
             return jsonify({"msg": action}), 200
         
         except (

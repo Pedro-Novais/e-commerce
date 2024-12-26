@@ -47,7 +47,7 @@ class CreateUser:
     def action(self):
         user_repo = UserRepository()
 
-        new_email = user_repo.get_user_by_email(email=self.email)
+        new_email = user_repo.get_user_by_email(email=self.email, shop=self.shop)
 
         if new_email:
             raise InfoAlreadyInUseError("Email {email}, já está cadastrado!".format(email=self.email))

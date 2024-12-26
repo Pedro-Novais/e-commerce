@@ -15,6 +15,7 @@ class Address(Base):
     zip_code = Column(String(20), nullable=False)
     country = Column(String(100), default='Brasil')
     created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
     user = relationship("User", back_populates="addresses")
     orders = relationship("Order", back_populates="address")

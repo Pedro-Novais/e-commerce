@@ -105,7 +105,7 @@ class UserController:
 
     def update_address_from_user(self, userId: int, address_id: int) -> Response:
         try:
-            action = UpdateAddress(request=self.request).action(userId=userId, addressId=address_id)
+            action = UpdateAddress(request=self.request, shop_name=self.shop_name).action(userId=userId, addressId=address_id)
             return jsonify(action), 201
         
         except (

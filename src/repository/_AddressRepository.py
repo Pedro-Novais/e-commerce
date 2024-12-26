@@ -39,7 +39,8 @@ class AddressRepository:
         
     def update_address(
             self,
-            user_id: int, 
+            user_id: int,
+            shop_name: str, 
             address_id: int,
             street: str,
             number: int,
@@ -49,10 +50,10 @@ class AddressRepository:
             country: str = "Brasil"
             ):
         with self.conn.get_db_session() as db:
-            address = db.query(Address).filter(Address.id == address_id, Address.user_id == user_id).first()
+            address = db.query(Address).filter(Address.id == address_id).filter(Address.user_id == user_id).filter(Address.shop_name == shop_name).first()
 
             if not address:
-                return None
+                return "AnyData"
             
             if street:
                 address.street = street

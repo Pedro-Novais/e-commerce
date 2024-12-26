@@ -40,10 +40,11 @@ def delete_user(userId: int, subdomain: str):
 def create_address(userId, subdomain):
     return UserController(request=request, shop_name=subdomain).add_address_from_user(userId=userId)
 
-@user_route.route('/address/<addressId>', methods=['PUT'])
+@user_route.route('/address/<addressId>', subdomain="<subdomain>", methods=['PUT'])
+@handle_subdomain
 @token_required
-def update_address(userId, addressId):
-    return UserController(request=request).update_address_from_user(userId=userId, address_id=addressId)
+def update_address(userId, addressId, subdomain):
+    return UserController(request=request, shop_name=subdomain).update_address_from_user(userId=userId, address_id=addressId)
 
 @user_route.route('/address/<addressId>', methods=['DELETE'])
 @token_required

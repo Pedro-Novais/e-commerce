@@ -28,10 +28,11 @@ def login_user(subdomain):
 # def patch_user(userId):
 #     return UserController(request=request).update_user(userId=userId)
 
-@user_route.route('/', methods=['DELETE'])
+@user_route.route('/', subdomain="<subdomain>", methods=['DELETE'])
+@handle_subdomain
 @token_required
-def delete_user(userId: int):
-    return UserController(request=request).delete_user(userId=userId)
+def delete_user(userId: int, subdomain: str):
+    return UserController(request=request, shop_name=subdomain).delete_user(userId=userId)
 
 @user_route.route('/address', methods=['POST'])
 @token_required

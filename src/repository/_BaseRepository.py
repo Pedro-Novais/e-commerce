@@ -11,9 +11,9 @@ class BaseRepository:
         with self.conn.get_db_session() as db:
             return db.query(self.Data).filter(self.Data.id == id).first()
         
-    def delete(self, id: int):
+    def delete(self, id: int, shop: str):
         with self.conn.get_db_session() as db:
-            data = db.query(self.Data).filter(self.Data.id == id).first()
+            data = db.query(self.Data).filter(self.Data.id == id).filter(self.Data.shop_name == shop).first()
 
             if not data:
                 return "AnyData"

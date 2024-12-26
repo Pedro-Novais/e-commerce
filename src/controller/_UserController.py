@@ -79,7 +79,7 @@ class UserController:
     
     def delete_user(self, userId: int) -> Response:
         try:
-            action = DeleteUser(userId=userId).action()
+            action = DeleteUser(userId=userId, shop_name=self.shop_name).action()
             return jsonify({"msg": action}), 201
         
         except (

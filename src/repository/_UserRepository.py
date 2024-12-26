@@ -1,10 +1,16 @@
 from sqlalchemy.orm import joinedload
 from .Conn import ConnDatabase
+from ._BaseRepository import BaseRepository
 from model.UserModel import User
 
-class UserRepository:
+class UserRepository(BaseRepository):
     def __init__(self):
         self.conn = ConnDatabase()
+
+        super().__init__(
+            DataModel=User,
+            conn=self.conn
+        )
 
     def get_all_user(self):
         with self.conn.get_db_session() as db:
@@ -71,13 +77,13 @@ class UserRepository:
             db.refresh(user)
             return user
         
-    def delete_user(self, user_id: int):
-        with self.conn.get_db_session() as db:
-            user = db.query(User).filter(User.id == user_id).first()
+    # def delete_user(self, user_id: int):
+    #     with self.conn.get_db_session() as db:
+    #         user = db.query(User).filter(User.id == user_id).first()
 
-            if not user:
-                return None
+    #         if not user:
+    #             return None
             
-            db.delete(user)
-            db.commit()
-            return user
+    #         db.delete(user)
+    #         db.commit()
+    #         return user

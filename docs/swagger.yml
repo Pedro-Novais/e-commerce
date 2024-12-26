@@ -4,7 +4,7 @@ info:
   description: A API for managing e-commerce.
 
 servers:
-  - url: http://localhost:6587
+  - url: http://sub1.localhost:5000
     description: Local server
 
 paths:
@@ -108,6 +108,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/NotFound"
+
+  /product:
+    
 
 components:
   schemas:

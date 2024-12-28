@@ -10,7 +10,7 @@ class Product(Base):
     description = Column(Text)
     is_digital = Column(BOOLEAN, default=False, nullable=False)
     custom_properties = Column(JSON, default=list)
-    category_id = Column(Integer, ForeignKey('categories.id'))
+    category_id = Column(Integer, ForeignKey('categories.id', ondelete="CASCADE"))
     shop_name = Column(String, ForeignKey('shops.name'))
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())

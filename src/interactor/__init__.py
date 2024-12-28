@@ -14,3 +14,8 @@ from .products._DeleteProduct import DeleteProduct
 from .products._UpdateProduct import UpdateProduct
 
 from .orders._CreateOrder import CreateOrder
+
+from .category._CreateCategory import CreateCategory
+from .category._UpdateCategory import UpdateCategory
+from .category._GetCategory import GetCategory
+from .category._DeleteCategory import DeleteCategory

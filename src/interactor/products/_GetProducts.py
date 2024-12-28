@@ -16,11 +16,11 @@ class GetProducts:
 
         data = [
             {   
-                "name": products[0].name,
-                "description": products[0].description,
-                "is_digital": products[0].is_digital,
-                "custom_properties": products[0].custom_properties,
-                "category": products[0].category.name,
+                "name": product.name,
+                "description": product.description,
+                "is_digital": product.is_digital,
+                "custom_properties": product.custom_properties,
+                "category": product.category.name,
                 "variants": [
                     {
                         "price": variant.price,

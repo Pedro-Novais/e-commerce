@@ -37,3 +37,24 @@ def delete_product(productId: int, subdomain):
 @admin_required
 def edit_product(productId: int, subdomain):
     return ProductController(request=request, shop_name=subdomain).edit_product(productId=productId)
+
+@product_route.route('/variant/<productId>', subdomain="<subdomain>", methods=['POST'])
+@handle_subdomain
+@token_required
+@admin_required
+def add_variant_product(productId: int, subdomain):
+    return ProductController(request=request, shop_name=subdomain).add_product()
+
+@product_route.route('/variant/<productId>', subdomain="<subdomain>", methods=['DELETE'])
+@handle_subdomain
+@token_required
+@admin_required
+def delete_variant_product(productId: int, subdomain):
+    return ProductController(request=request, shop_name=subdomain).delete_product(productId=productId)
+
+@product_route.route('/variant/<productId>', subdomain="<subdomain>", methods=['PUT'])
+@handle_subdomain
+@token_required
+@admin_required
+def edit_variant_product(productId: int, subdomain):
+    return ProductController(request=request, shop_name=subdomain).edit_product(productId=productId)

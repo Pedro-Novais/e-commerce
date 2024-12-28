@@ -16,7 +16,7 @@ class GetOneProduct:
     def action(self):
         product_repo = ProductRepository()
 
-        product = product_repo.get_by_id(id=self.productId, shop=self.shop)
+        product = product_repo.get_one_product(id=self.productId, shop=self.shop)
 
         if not product:
             raise NotFoundError("Nenhum produto foi encontrado!")
@@ -24,11 +24,17 @@ class GetOneProduct:
         data = {
             "name": product.name,
             "description": product.description,
-            "price": product.price,
-            "stock_quantity": product.stock_quantity,
             "is_digital": product.is_digital,
             "custom_properties": product.custom_properties,
-            "images": product.images,
+            "variants": [
+                {
+                "price": variant.price,
+                "color": variant.color,
+                "size": variant.size,
+                "images": variant.images
+                }
+                for variant in product.variants
+            ]
         }
 
         return data

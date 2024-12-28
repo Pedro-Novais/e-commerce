@@ -14,7 +14,8 @@ class CreateOrder:
     def __init__(self, user_id: int, shop_name: str, request: Request):
         self.user_id = user_id
         self.shop = shop_name
-        self.request = request.get_json()
+        
+        request = request.get_json()
         
         self.validators()
 

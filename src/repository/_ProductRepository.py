@@ -2,6 +2,7 @@ from sqlalchemy.orm import joinedload
 from .Conn import ConnDatabase
 from ._BaseRepository import BaseRepository
 from model.ProductModel import Product
+from model.ProductVariantsModel import ProductVariants
 
 class ProductRepository(BaseRepository):
     def __init__(self):
@@ -12,9 +13,13 @@ class ProductRepository(BaseRepository):
             conn=self.conn
         )
 
+    def get_one_product(self, id: int, shop: str):
+        with self.conn.get_db_session() as db:
+            return db.query(Product).filter(Product.id == id).filter(Product.shop_name == shop).options(joinedload(Product.variants)).first()
+
     def get_all_products(self, shop: str):
         with self.conn.get_db_session() as db:
-            return db.query(Product).filter(Product.shop_name == shop).options(joinedload(Product.category)).all()
+            return db.query(Product).filter(Product.shop_name == shop).options(joinedload(Product.category)).options(joinedload(Product.variants)).all()
     
 
     def create_product(
@@ -22,11 +27,9 @@ class ProductRepository(BaseRepository):
             shop: str,
             name: str,
             description: str,
-            price: float,
             category_id: int,
             custom_properties: list,
-            images: list = [],
-            stock_quantity: int = 0,
+            product_variants: list,
             is_digital: bool = False
             ):
         with self.conn.get_db_session() as db:
@@ -34,17 +37,28 @@ class ProductRepository(BaseRepository):
                 shop_name = shop,
                 name = name,
                 description = description,
-                price = price,
-                stock_quantity = stock_quantity,
                 is_digital = is_digital,
                 custom_properties = custom_properties,
-                images = images,
                 category_id = category_id
             )
 
             db.add(new_product)
             db.commit()
             db.refresh(new_product)
+
+            for product_variant in product_variants:
+                new_variants = ProductVariants(
+                    product_id=new_product.id,
+                    price=product_variant.get("price"),
+                    color=product_variant.get("color", None),
+                    size=product_variant.get("size", None),
+                    images=product_variant.get("images", []),
+                    shop_name=shop,
+                )
+
+                db.add(new_variants)
+
+            db.commit()
             return new_product
         
     def update_product(
@@ -53,11 +67,8 @@ class ProductRepository(BaseRepository):
             product_id: int = None,
             name: str = None,
             description: str = None,
-            price: float = None,
             category_id: int = None,
             custom_properties: list = None,
-            images: list = None,
-            stock_quantity: int = None,
             is_digital: bool = None
             ):
         with self.conn.get_db_session() as db:
@@ -72,20 +83,11 @@ class ProductRepository(BaseRepository):
             if description:
                 product.description = description
 
-            if price:
-                product.price = price
-
             if category_id:
                 product.category_id = category_id
 
             if custom_properties:
                 product.custom_properties = custom_properties
-
-            if images:
-                product.images = images
-            
-            if stock_quantity:
-                product.stock_quantity = stock_quantity
 
             if is_digital:
                 product.is_digital = is_digital

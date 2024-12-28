@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, DECIMAL, func
+from sqlalchemy import Column, Text, String, Integer, ForeignKey, DateTime, DECIMAL, func
 from sqlalchemy.orm import relationship
 from config.config import Base
 
@@ -10,6 +10,12 @@ class Order(Base):
     address_id = Column(Integer, ForeignKey('addresses.id'))
     shop_name = Column(String, ForeignKey('shops.name'))
     total_price = Column(DECIMAL(10, 2), nullable=False)
+    discount = Column(DECIMAL(10, 2), default=0.00)
+    tax = Column(DECIMAL(10, 2), default=0.00)
+    shipping_fee = Column(DECIMAL(10, 2), default=0.00)
+    shipment_tracking_number = Column(String(255))
+    delivery_date = Column(DateTime)
+    cancellation_reason = Column(Text)
     status = Column(String(50), default='PENDING')
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())

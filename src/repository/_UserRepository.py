@@ -76,14 +76,3 @@ class UserRepository(BaseRepository):
             db.commit()
             db.refresh(user)
             return user
-        
-    # def delete_user(self, user_id: int):
-    #     with self.conn.get_db_session() as db:
-    #         user = db.query(User).filter(User.id == user_id).first()
-
-    #         if not user:
-    #             return None
-            
-    #         db.delete(user)
-    #         db.commit()
-    #         return user

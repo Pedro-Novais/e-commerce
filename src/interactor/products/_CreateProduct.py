@@ -1,4 +1,5 @@
 from repository._ProductRepository import ProductRepository
+from repository._ProductVariantsRepository import ProductVariantsRepository
 from repository._CategoryRepository import CategoryRepository
 
 from custom_exceptions._CustomExceptions import (
@@ -21,22 +22,21 @@ class CreateProduct:
         
         self.description = request.get("description", None)
 
-        self.price = request.get("price")
-        if not self.price:
-            raise ParameterNotSend()
-        
-        if not isinstance(self.price, float):
-            raise FormatInvalidError()
-        
-        self.stock = request.get("stock_quantity", 0)
-
-        self.is_digital = request.get("is_digital", False)
+        self.is_digital = request.get("is_digital", False) 
 
         self.custom_properties = request.get("custom_properties", [])
 
-        self.images = request.get("images", [])
-
         self.category = request.get("category", None)
+
+        self.variants = request.get("variants", None)
+        if not self.variants:
+            raise ParameterNotSend()
+        
+        for variant in self.variants:
+            if not variant.get("price"):
+                raise ParameterNotSend()
+            if not isinstance(variant.get("price"), float):
+                raise FormatInvalidError()
 
     def action(self):
         product_repo = ProductRepository()
@@ -50,13 +50,11 @@ class CreateProduct:
         create_product = product_repo.create_product(
             name=self.name,
             description=self.description,
-            price=self.price,
             category_id=self.category,
-            stock_quantity=self.stock,
             is_digital=self.is_digital,
             custom_properties=self.custom_properties,
-            images=self.images,
-            shop=self.shop
+            shop=self.shop,
+            product_variants=self.variants
         )
 
         if not create_product:

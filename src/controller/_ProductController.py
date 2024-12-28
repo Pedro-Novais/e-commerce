@@ -39,7 +39,7 @@ class ProductController:
     def get_products(self):
         try:
             action = GetProducts(shop_name=self.shop_name).action()
-            return jsonify(action), 201
+            return jsonify({"products": action}), 201
         
         except (
             Exception,
@@ -75,6 +75,45 @@ class ProductController:
             return error_handler(error=e)
 
     def edit_product(self, productId: int):
+        try:
+            action = UpdateProduct(request=self.request, productId=productId, shop_name=self.shop_name).action()
+            return jsonify({"msg": action}), 201
+        
+        except (
+            Exception,
+            ParameterNotSend,
+            OperationError,
+            FormatInvalidError
+            ) as e:
+            return error_handler(error=e)
+    
+    def add_variant_product(self):
+        try:
+            action = CreateProduct(request=self.request, shop_name=self.shop_name).action()
+            return jsonify({"msg": action}), 201
+        
+        except (
+            Exception,
+            ParameterNotSend,
+            NotFoundError,
+            FormatInvalidError,
+            OperationError
+            ) as e:
+            return error_handler(error=e)
+        
+    def delete_variant_product(self, productId: int):
+        try:
+            action = DeleteProduct(product_id=productId, shop_name=self.shop_name).action()
+            return jsonify({"msg": action}), 201
+        
+        except (
+            Exception,
+            ParameterNotSend,
+            OperationError
+            ) as e:
+            return error_handler(error=e)
+    
+    def edit_variant_product(self, productId: int):
         try:
             action = UpdateProduct(request=self.request, productId=productId, shop_name=self.shop_name).action()
             return jsonify({"msg": action}), 201

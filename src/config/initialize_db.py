@@ -19,7 +19,8 @@ from model import (
     OrderModel,
     CategoryModel,
     CartModel,
-    ShopModel
+    ShopModel,
+    ProductVariantsModel
 )
 
 
@@ -29,7 +30,6 @@ def initialize_database(app: Flask) -> None:
         load_dotenv()
         engine = create_engine(os.getenv('DATABASE_URL'))
         Base.metadata.create_all(bind=engine)
-        # print(Base.metadata.tables)
 
     except Exception as e:
         print("algum erro ocorreu ao inicializar as tabelas, erro; {}".format(e))

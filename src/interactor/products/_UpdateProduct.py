@@ -25,16 +25,6 @@ class UpdateProduct:
         
         self.description = request.get("description", None)
 
-        self.price = request.get("price", None)
-        if self.price:
-            if not isinstance(self.price, float):
-                raise FormatInvalidError()
-        
-        self.stock = request.get("stock_quantity", None)
-        if self.stock:
-            if not isinstance(self.stock, int):
-                raise FormatInvalidError() 
-
         self.is_digital = request.get("is_digital", None)
         if self.is_digital:
             if not isinstance(self.is_digital, bool):
@@ -43,11 +33,6 @@ class UpdateProduct:
         self.custom_properties = request.get("custom_properties", None)
         if self.custom_properties:
             if not isinstance(self.custom_properties, list):
-                raise FormatInvalidError()
-            
-        self.images = request.get("images", None)
-        if self.images:
-            if not isinstance(self.images, list):
                 raise FormatInvalidError()
 
         self.category = request.get("category", None)
@@ -67,12 +52,9 @@ class UpdateProduct:
             product_id=self.productId,
             name=self.name,
             description=self.description,
-            price=self.price,
             category_id=self.category,
-            stock_quantity=self.stock,
             is_digital=self.is_digital,
             custom_properties=self.custom_properties,
-            images=self.images
         )
 
         if not update_product:

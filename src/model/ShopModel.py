@@ -13,6 +13,7 @@ class Shop(Base):
 
     orders = relationship("Order", back_populates="shop")
     products = relationship("Product", back_populates="shop")
+    product_variants = relationship("ProductVariants", back_populates="shop")
     users = relationship("User", back_populates="shop")
     reviews = relationship("Review", back_populates="shop")
     payments = relationship("Payment", back_populates="shop")

@@ -13,6 +13,8 @@ from .products._GetProducts import GetProducts
 from .products._DeleteProduct import DeleteProduct
 from .products._UpdateProduct import UpdateProduct
 
+from .reviews._CreateRating import CreateRating
+
 from .orders._CreateOrder import CreateOrder
 
 from .category._CreateCategory import CreateCategory

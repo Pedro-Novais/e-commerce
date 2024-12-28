@@ -9,8 +9,8 @@ class Review(Base):
     product_id = Column(Integer, ForeignKey('products.id'))
     user_id = Column(Integer, ForeignKey('users.id'))
     shop_name = Column(String, ForeignKey('shops.name')) 
-    rating = Column(Integer, nullable=False)
-    comment = Column(Text)
+    rating = Column(Integer, nullable=True)
+    comment = Column(Text, nullable=True)
     created_at = Column(DateTime, default=func.now())
 
     product = relationship("Product")

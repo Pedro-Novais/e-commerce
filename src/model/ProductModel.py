@@ -19,3 +19,4 @@ class Product(Base):
     order_items = relationship("OrderItem", back_populates="product")
     shop = relationship("Shop", back_populates="products")
     variants = relationship("ProductVariants", back_populates="product", cascade="all, delete-orphan")
+    reviews = relationship("Review", back_populates="product")

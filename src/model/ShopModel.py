@@ -8,6 +8,9 @@ class Shop(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255), nullable=False, unique=True)
     subdomain = Column(String(255), nullable=False, unique=True)
+    company_infos = Column(JSON, nullable=False, default=list)
+    images = Column(JSON, default=list)
+    status = Column(BOOLEAN, default=True)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
@@ -15,7 +18,7 @@ class Shop(Base):
     products = relationship("Product", back_populates="shop")
     product_variants = relationship("ProductVariants", back_populates="shop")
     users = relationship("User", back_populates="shop")
-    reviews = relationship("Review", back_populates="shop")
+    reviews = relationship("Review", back_populates="shop", cascade="all, delete-orphan")
     payments = relationship("Payment", back_populates="shop")
     order_items = relationship("OrderItem", back_populates="shop")
     inventory = relationship("Inventory", back_populates="shop")

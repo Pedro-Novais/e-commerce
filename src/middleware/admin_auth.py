@@ -3,7 +3,6 @@ from functools import wraps
 from sqlalchemy.orm.exc import NoResultFound
 
 from repository._UserRepository import UserRepository
-from model.UserModel import User
 
 def admin_required(f):
     @wraps(f)

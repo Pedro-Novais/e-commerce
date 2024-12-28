@@ -8,7 +8,7 @@ class Review(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     product_id = Column(Integer, ForeignKey('products.id'))
     user_id = Column(Integer, ForeignKey('users.id'))
-    shop_name = Column(String, ForeignKey('shops.name'))
+    shop_name = Column(String, ForeignKey('shops.name')) 
     rating = Column(Integer, nullable=False)
     comment = Column(Text)
     created_at = Column(DateTime, default=func.now())

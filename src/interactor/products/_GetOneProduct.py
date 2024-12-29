@@ -1,9 +1,8 @@
+from ._I18n import I18n
+
 from repository._ProductRepository import ProductRepository
 
-from custom_exceptions._CustomExceptions import (
-    NotFoundError,
-    FormatInvalidError
-    )
+from custom_exceptions._CustomExceptions import NotFoundError
 
 class GetOneProduct:
     def __init__(self, productId: int, shop_name: str):
@@ -11,7 +10,7 @@ class GetOneProduct:
         self.productId = productId
 
         if not self.productId:
-            raise NotFoundError("Parametros obrigatórios não foram enviados!")
+            raise NotFoundError()
 
     def action(self):
         product_repo = ProductRepository()
@@ -19,7 +18,7 @@ class GetOneProduct:
         product = product_repo.get_one_product(id=self.productId, shop=self.shop)
 
         if not product:
-            raise NotFoundError("Nenhum produto foi encontrado!")
+            raise NotFoundError(I18n.NOT_FOUND_PRODUCT)
         
         data = {
             "name": product.name,

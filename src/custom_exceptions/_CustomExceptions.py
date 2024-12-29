@@ -1,29 +1,30 @@
+from utils._I18nShared import I18nShared
 from ._CustomError import CustomError
 
 class InfoAlreadyInUseError(CustomError):
-    def __init__(self, message: str = "Informação já está cadastrada"):
+    def __init__(self, message: str = I18nShared.INFO_ALREADY_USED):
         super().__init__(message, status_code=400)
 
 class FormatInvalidError(CustomError):
-    def __init__(self, message: str = "Paramêtros invalidos enviados"):
+    def __init__(self, message: str = I18nShared.PARAMETER_INVALID):
         super().__init__(message, status_code=400)
 
 class NotFoundError(CustomError):
-    def __init__(self, message: str = "Recurso não encontrado"):
+    def __init__(self, message: str = I18nShared.NOT_FOUND):
         super().__init__(message, status_code=404)
 
 class ParameterNotSend(CustomError):
-    def __init__(self, message: str = "Parametro obrigatório não enviado ao servidor!"):
+    def __init__(self, message: str = I18nShared.PARAMETER_NOT_SEND):
         super().__init__(message, status_code=404)
 
 class CredentialIncorrectError(CustomError):
-    def __init__(self, message: str = "Credenciasi invalídas!"):
+    def __init__(self, message: str = I18nShared.CREDENTIALS_INVALID):
         super().__init__(message, status_code=400)
         
 class AdminCanotBeDeletedError(CustomError):
-    def __init__(self, message: str = "Usuário niveis admin não podem ser excluídos!"):
+    def __init__(self, message: str = I18nShared.ADMIN_NOT_BE_DELETED):
         super().__init__(message, status_code=400)
 
 class OperationError(CustomError):
-    def __init__(self, message: str = "Erro ao realizar operação!", error: str = ""):
+    def __init__(self, message: str = I18nShared.OPERATION_ERROR, error: str = ""):
         super().__init__(message, status_code=400, msg_error = error)

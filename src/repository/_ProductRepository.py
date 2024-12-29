@@ -1,8 +1,12 @@
 from sqlalchemy.orm import joinedload
+
 from .Conn import ConnDatabase
 from ._BaseRepository import BaseRepository
+
 from model.ProductModel import Product
 from model.ProductVariantsModel import ProductVariants
+
+from utils._I18nShared import I18nShared
 
 class ProductRepository(BaseRepository):
     def __init__(self):
@@ -75,7 +79,7 @@ class ProductRepository(BaseRepository):
             product = db.query(Product).filter(Product.id == product_id).filter(Product.shop_name == shop).first()
 
             if not product:
-                return "AnyData"
+                return I18nShared.ANY_DATA
             
             if name:
                 product.name = name

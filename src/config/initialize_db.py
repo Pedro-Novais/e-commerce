@@ -4,7 +4,6 @@ from sqlalchemy import create_engine
 
 from dotenv import load_dotenv
 
-from model import CartItemModel
 from .config import Base
 
 from model import (
@@ -20,7 +19,8 @@ from model import (
     CategoryModel,
     CartModel,
     ShopModel,
-    ProductVariantsModel
+    ProductVariantsModel,
+    CartItemModel
 )
 
 

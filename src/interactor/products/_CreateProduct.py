@@ -1,5 +1,8 @@
+from flask import Request
+
+from ._I18n import I18n
+
 from repository._ProductRepository import ProductRepository
-from repository._ProductVariantsRepository import ProductVariantsRepository
 from repository._CategoryRepository import CategoryRepository
 
 from custom_exceptions._CustomExceptions import (
@@ -8,9 +11,7 @@ from custom_exceptions._CustomExceptions import (
     ParameterNotSend,
     OperationError
 )
-
-from flask import Request
-
+ 
 class CreateProduct:
     def __init__(self, request: Request, shop_name: str):
         self.shop = shop_name
@@ -45,7 +46,7 @@ class CreateProduct:
         category_valid = category_repo.get_by_id(id=self.category, shop=self.shop)
 
         if not category_valid:
-            raise NotFoundError("Categoria utilizada no cadastro, não foi encontrada!")
+            raise NotFoundError(I18n.NOT_FOUND_CATEGORY_TO_ITEM)
         
         create_product = product_repo.create_product(
             name=self.name,
@@ -58,6 +59,6 @@ class CreateProduct:
         )
 
         if not create_product:
-            raise OperationError("Erro ao criar novo produto!")
+            raise OperationError(I18n.ERROR_CREATE_PRODUCT)
         
-        return "Produto criado com sucesso!"
+        return I18n.SUCESS_CREATE_PRODUCT

@@ -1,3 +1,5 @@
+from ._I18n import I18n
+
 from repository._ProductRepository import ProductRepository
 
 from custom_exceptions._CustomExceptions import NotFoundError
@@ -12,7 +14,7 @@ class GetProducts:
         products = product_repo.get_all_products(shop=self.shop)
 
         if not products:
-            raise NotFoundError("Produtos não foram encontrados!")
+            raise NotFoundError(I18n.NOT_FOUND_PRODUCT)
 
         data = [
             {   

@@ -1,5 +1,8 @@
 from flask import Request
 
+from utils._I18nShared import I18nShared
+from ._I18n import I18n
+
 from repository._ProductRepository import ProductRepository
 from repository._CategoryRepository import CategoryRepository
 
@@ -7,7 +10,6 @@ from custom_exceptions._CustomExceptions import (
     NotFoundError,
     FormatInvalidError,
     ParameterNotSend,
-    InfoAlreadyInUseError,
     OperationError
 )
 
@@ -45,7 +47,7 @@ class UpdateProduct:
             category_valid = category_repo.get_by_id(id=self.category, shop=self.shop)
 
             if not category_valid:
-                raise NotFoundError("Categoria utilizada na atualização do item, não foi encontrada!")
+                raise NotFoundError(I18n.NOT_FOUND_CATEGORY_TO_ITEM)
         
         update_product = product_repo.update_product(
             shop=self.shop,
@@ -58,9 +60,9 @@ class UpdateProduct:
         )
 
         if not update_product:
-            raise OperationError("Erro ao atualizar produto!")
+            raise OperationError(I18n.ERROR_UPDATE_PRODUCT)
         
-        if update_product == "AnyData":
-             raise OperationError("Produto não foi encontrado para efetuar as alterações!")
+        if update_product == I18nShared.ANY_DATA:
+             raise NotFoundError(I18n.NOT_FOUND_PRODUCT)
         
-        return "Produto atualizado com sucesso!"
+        return I18n.SUCESS_UPDATE_PRODUCT

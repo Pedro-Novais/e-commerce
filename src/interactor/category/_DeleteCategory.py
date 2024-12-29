@@ -1,4 +1,5 @@
-from flask import Request
+from utils._I18nShared import I18nShared
+from ._I18n import I18n
 
 from repository._CategoryRepository import CategoryRepository
 
@@ -19,9 +20,9 @@ class DeleteCategory:
         delete_category = category_repo.delete(id=self.category, shop=self.shop)
 
         if not delete_category:
-            raise OperationError("Erro ao deletar categoria!")
+            raise OperationError(I18n.ERROR_DELETE_CATEGORY)
         
-        if delete_category == "AnyData":
-            raise NotFoundError("Categoria não foi encontrada!")
+        if delete_category == I18nShared.ANY_DATA:
+            raise NotFoundError(I18n.NOT_FOUND_CATEGORY)
         
-        return "Categoria deletada com sucesso"
+        return I18n.SUCCESS_DELETE_CATEGORY

@@ -1,5 +1,7 @@
 from flask import Request
 
+from ._I18n import I18n
+
 from repository._CategoryRepository import CategoryRepository
 
 from custom_exceptions._CustomExceptions import (
@@ -28,6 +30,6 @@ class CreateCategory:
         )
 
         if not new_category:
-            raise OperationError("Erro ao criar nova categoria!")
+            raise OperationError(I18n.ERROR_CREATE_CATEGORY)
         
-        return "Categoria criada com sucesso"
+        return I18n.SUCCESS_CREATE_CATEGORY

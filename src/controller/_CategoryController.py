@@ -23,17 +23,17 @@ class CategoryController:
         self.shop_name = shop_name
         self.request = request
 
-    def get_category(self, user_id: int):
-        try:
-            action = CreateCategory(user_id=user_id, shop_name=self.shop_name, request=self.request).action()
-            return jsonify(action), 201
+    # def get_category(self, user_id: int):
+    #     try:
+    #         action = CreateCategory(user_id=user_id, shop_name=self.shop_name, request=self.request).action()
+    #         return jsonify(action), 201
         
-        except (
-            Exception,
-            NotFoundError,
-            OperationError
-            ) as e:
-            return error_handler(error=e)
+    #     except (
+    #         Exception,
+    #         NotFoundError,
+    #         OperationError
+    #         ) as e:
+    #         return error_handler(error=e)
         
     def create_category(self):
         try:

@@ -1,5 +1,7 @@
 from flask import Request
 
+from utils._I18nShared import I18nShared
+from ._I18n import I18n
 from repository._CategoryRepository import CategoryRepository
 
 from custom_exceptions._CustomExceptions import (
@@ -29,9 +31,9 @@ class UpdateCategory:
         )
 
         if not category_update:
-            raise OperationError("Erro ao atualizar categoria!")
+            raise OperationError(I18n.ERROR_UPDATE_CATEGORY)
         
-        if category_update == "AnyData":
-            raise NotFoundError("Categoria não foi enconmtrada para atualização!")
+        if category_update == I18nShared.ANY_DATA:
+            raise NotFoundError(I18n.NOT_FOUND_CATEGORY)
         
-        return "Categoria atualizada com sucesso"
+        return I18n.SUCCESS_UPDATE_CATEGORY

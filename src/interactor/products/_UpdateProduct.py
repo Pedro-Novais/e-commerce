@@ -65,4 +65,4 @@ class UpdateProduct:
         if update_product == I18nShared.ANY_DATA:
              raise NotFoundError(I18n.NOT_FOUND_PRODUCT)
         
-        return I18n.SUCESS_UPDATE_PRODUCT
+        return I18n.SUCCESS_UPDATE_PRODUCT

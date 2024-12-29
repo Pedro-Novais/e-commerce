@@ -1,4 +1,5 @@
-from flask import Request, Response
+from utils._I18nShared import I18nShared
+from ._I18n import I18n
 
 from repository._UserRepository import UserRepository
 
@@ -20,14 +21,14 @@ class DeleteUser:
         user = user_repo.get_user_by_id(user_id=self.id, shop=self.shop)
 
         if not user:
-            raise NotFoundError("Usuário não encontrado")
+            raise NotFoundError(I18n.NOT_FOUND_USER)
 
         if user.is_admin:
             raise AdminCanotBeDeletedError()
 
         delete_user = user_repo.delete(id=self.id, shop=self.shop)
 
-        if delete_user == "AnyData":
-            raise OperationError("Erro ao excluir conta!")
+        if delete_user == I18nShared.ANY_DATA:
+            raise OperationError(I18n.ERROR_DELETE_USER)
 
-        return "Usuário deletado com sucesso"
+        return I18n.SUCCESS_DELETE_USER

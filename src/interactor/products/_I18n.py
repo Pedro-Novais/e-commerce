@@ -1,7 +1,7 @@
 class I18n(object):
-    SUCESS_CREATE_PRODUCT = "Produto criado com sucesso"
-    SUCESS_UPDATE_PRODUCT = "Produto atualizado com sucesso"
-    SUCESS_DELETE_PRODUCT = "Produto deletado com sucesso"
+    SUCCESS_CREATE_PRODUCT = "Produto criado com sucesso"
+    SUCCESS_UPDATE_PRODUCT = "Produto atualizado com sucesso"
+    SUCCESS_DELETE_PRODUCT = "Produto deletado com sucesso"
 
     ERROR_CREATE_PRODUCT = "Erro ao criar produto"
     ERROR_UPDATE_PRODUCT = "Erro ao atualizar produto"

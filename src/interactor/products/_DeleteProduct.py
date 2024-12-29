@@ -27,4 +27,4 @@ class DeleteProduct:
         if delete_product == I18nShared.ANY_DATA:
             raise OperationError(I18n.NOT_FOUND_PRODUCT)
 
-        return I18n.SUCESS_DELETE_PRODUCT
+        return I18n.SUCCESS_DELETE_PRODUCT

@@ -1,5 +1,8 @@
 from flask import Request
 
+from utils._I18nShared import I18nShared
+from ._I18n import I18n
+
 from repository._AddressRepository import AddressRepository
 
 from custom_exceptions._CustomExceptions import (
@@ -14,23 +17,23 @@ class UpdateAddress:
 
         self.street = self.request.get("street")
         if not self.street:
-            raise NotFoundError("Paramêtros não enviados ao servidor!")
+            raise NotFoundError()
 
         self.number = self.request.get("number")
         if not self.number:
-            raise NotFoundError("Paramêtros não enviados ao servidor!")
+            raise NotFoundError()
         
         self.city = self.request.get("city")
         if not self.city:
-            raise NotFoundError("Paramêtros não enviados ao servidor!")
+            raise NotFoundError()
 
         self.state = self.request.get("state")
         if not self.state:
-            raise NotFoundError("Paramêtros não enviados ao servidor!")
+            raise NotFoundError()
 
         self.zip_code = self.request.get("zip_code")
         if not self.zip_code:
-            raise NotFoundError("Paramêtros não enviados ao servidor!")
+            raise NotFoundError()
 
     def action(self, userId: int, addressId: int):
         address_repo = AddressRepository()
@@ -47,10 +50,10 @@ class UpdateAddress:
         )
 
         if not update_address:
-            raise OperationError("Erro ao atualizar endereço!")
+            raise OperationError(I18n.ERROR_UPDATE_ADDRESS)
         
-        if update_address == "AnyData":
-            raise NotFoundError("Endereço não foi encontrado para realizar as alterações!")
+        if update_address == I18nShared.ANY_DATA:
+            raise NotFoundError(I18n.NOT_FOUND_ADDRESS)
         
         data = {
             "street": update_address.street,

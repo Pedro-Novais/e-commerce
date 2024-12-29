@@ -5,6 +5,8 @@ from utils.validators import (
     valid_password
     )
 
+from ._I18n import I18n
+
 from middleware.criptografy import hash_password
 
 from repository._UserRepository import UserRepository
@@ -23,24 +25,24 @@ class CreateUser:
 
         self.name = self.request.get("name")
         if not self.name:
-            raise NotFoundError("Paramêtros obrigatórios não foram enviados!")
+            raise NotFoundError()
 
         if not isinstance(self.name, str):
             raise FormatInvalidError("Nome inválido!")
         
         self.email = self.request.get("email")
         if not self.email:
-            raise NotFoundError("Paramêtros obrigatórios não foram enviados!")
+            raise NotFoundError()
         
         if not valid_email(email=self.email):
             raise FormatInvalidError("Email inválido!")
 
         self.password = self.request.get("password")
         if not self.password:
-            raise NotFoundError("Paramêtros obrigatórios não foram enviados!")
+            raise NotFoundError()
         
         if not valid_password(password=self.password):
-            raise FormatInvalidError("Senha inválida!")
+            raise FormatInvalidError(I18n.ERROR_FORMAT_PASSWORD)
         
         self.is_admin = self.request.get("is_admin", False) in [True]
         
@@ -50,7 +52,7 @@ class CreateUser:
         new_email = user_repo.get_user_by_email(email=self.email, shop=self.shop)
 
         if new_email:
-            raise InfoAlreadyInUseError("Email {email}, já está cadastrado!".format(email=self.email))
+            raise InfoAlreadyInUseError(I18n.ERROR_EMAIL_ALREADY_REGISTERED.format(email=new_email))
         
         password_criptography = hash_password(password=self.password)
 
@@ -63,6 +65,6 @@ class CreateUser:
         )
         
         if not new_user:
-            raise OperationError("Erro ao criar novo usuário")
+            raise OperationError(I18n.ERROR_CREATE_USER)
         
-        return "Usuário criado com sucesso!"
+        return I18n.SUCCESS_CREATE_USER

@@ -61,4 +61,4 @@ class CreateProduct:
         if not create_product:
             raise OperationError(I18n.ERROR_CREATE_PRODUCT)
         
-        return I18n.SUCESS_CREATE_PRODUCT
+        return I18n.SUCCESS_CREATE_PRODUCT

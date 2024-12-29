@@ -1,4 +1,5 @@
-from flask import Request
+from utils._I18nShared import I18nShared
+from ._I18n import I18n
 
 from repository._AddressRepository import AddressRepository
 
@@ -19,9 +20,9 @@ class DeleteAddress:
         delete_address = address_repo.delete_address(user_id=self.user_id, address_id=self.address_id, shop_name=self.shop)
 
         if not delete_address:
-            raise OperationError("Erro ao excluir o endereço!")
+            raise OperationError(I18n.ERROR_DELETE_ADDRESS)
         
-        if delete_address == "AnyData":
-            raise NotFoundError("Endereço não foi encontrado para ser excluído!")
+        if delete_address == I18nShared.ANY_DATA:
+            raise NotFoundError(I18n.NOT_FOUND_ADDRESS)
         
-        return "Endereço deletado com sucesso!"
+        return I18n.SUCCESS_DELETE_ADDRESS

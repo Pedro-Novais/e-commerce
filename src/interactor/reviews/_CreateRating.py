@@ -1,5 +1,7 @@
 from flask import Request
 
+from ._I18n import I18n
+
 from repository._ReviewRepository import ReviewRepository
 from repository._ProductRepository import ProductRepository
 
@@ -23,7 +25,7 @@ class CreateRating:
         self.comment = request.get("comment", None)
 
         if not self.rating and not self.comment:
-            raise NotFoundError("Nenhuma avaliação foi realizada!")
+            raise NotFoundError(I18n.NOT_FOUND_RATING)
 
         if self.rating > 5:
             self.rating = 5
@@ -38,7 +40,7 @@ class CreateRating:
         product = product_repo.get_by_id(id=self.product, shop=self.shop)
 
         if not product:
-            raise NotFoundError("Produto não foi encontrado!")
+            raise NotFoundError(I18n.NOT_FOUND_PRODUCT)
         
         new_review = review_repo.create_rating(
             shop = self.shop,
@@ -49,6 +51,6 @@ class CreateRating:
         )
 
         if not new_review:
-            raise OperationError("Erro ao adicionar comentário!")
+            raise OperationError(I18n.ERROR_ADDIDNG_RATING)
         
-        return "Comentário adicionado com sucesso!"
+        return I18n.SUCCESS_ADDING_RATING

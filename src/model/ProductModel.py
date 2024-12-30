@@ -16,7 +16,6 @@ class Product(Base):
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
     category = relationship("Category", back_populates="products")
-    order_items = relationship("OrderItem", back_populates="product")
     shop = relationship("Shop", back_populates="products")
     variants = relationship("ProductVariants", back_populates="product", cascade="all, delete-orphan")
     reviews = relationship("Review", back_populates="product")

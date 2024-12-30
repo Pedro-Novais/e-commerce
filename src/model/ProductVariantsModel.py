@@ -17,3 +17,4 @@ class ProductVariants(Base):
 
     product = relationship("Product", back_populates="variants")
     shop = relationship("Shop", back_populates="product_variants")
+    order_items = relationship("OrderItem", back_populates="product_variant")

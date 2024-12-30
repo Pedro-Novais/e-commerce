@@ -20,7 +20,7 @@ class OrderController:
     def create_order(self, user_id: int):
         try:
             action = CreateOrder(user_id=user_id, shop_name=self.shop_name, request=self.request).action()
-            return jsonify(action), 201
+            return jsonify({"msg": action}), 201
         
         except (
             Exception,

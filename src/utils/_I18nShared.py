@@ -12,5 +12,11 @@ class I18nShared(object):
     OPERATION_ERROR = "Erro ao realziar operação"
 
     ADMIN_NOT_BE_DELETED = "Usuário administrador, não pode ser excluído"
+    
+    USER_LOGGED = "Usuário possui sessão iniciada"
+    USER_NOT_BE_LOGGED = "Usuário não possui sessão"
 
+    WITH_DATA = "WithData"
     ANY_DATA = "AnyData"
+
+    INTERNAL_SERVER_ERROR = "Erro interno no servidor"

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text, String, Integer, ForeignKey, DateTime, DECIMAL, func
+from sqlalchemy import Column, JSON, Text, String, Integer, ForeignKey, DateTime, DECIMAL, func
 from sqlalchemy.orm import relationship
 from config.config import Base
 
@@ -6,16 +6,18 @@ class Order(Base):
     __tablename__ = 'orders'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey('users.id'))
-    address_id = Column(Integer, ForeignKey('addresses.id'))
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
+    address_id = Column(Integer, ForeignKey('addresses.id'), nullable=True)
     shop_name = Column(String, ForeignKey('shops.name'))
+    payer_email = Column(String(100))
+    payer_address = Column(JSON)
     total_price = Column(DECIMAL(10, 2), nullable=False)
     discount = Column(DECIMAL(10, 2), default=0.00)
     tax = Column(DECIMAL(10, 2), default=0.00)
     shipping_fee = Column(DECIMAL(10, 2), default=0.00)
     shipment_tracking_number = Column(String(255))
     delivery_date = Column(DateTime)
-    cancellation_reason = Column(Text)
+    reason = Column(Text)
     status = Column(String(50), default='PENDING')
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())

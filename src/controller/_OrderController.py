@@ -1,7 +1,11 @@
 from flask import Request, jsonify
 from middleware.error_handler import error_handler
 
-from interactor import CreateOrder
+from interactor import (
+    CreateOrder,
+    WebHookOrder
+    )
+
 from custom_exceptions._CustomExceptions import (
     NotFoundError,
     FormatInvalidError,
@@ -27,4 +31,12 @@ class OrderController:
             NotFoundError,
             OperationError
             ) as e:
+            return error_handler(error=e)
+        
+    def webhook_order(self):
+        try:
+            action = WebHookOrder(request=self.request).action()
+            return jsonify({"msg": action}), 201
+        
+        except Exception as e:
             return error_handler(error=e)

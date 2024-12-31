@@ -25,8 +25,15 @@ class StatusCodeResponse(object):
         "cc_rejected_card_type_not_allowed": "Cartão não permitido",
         "cc_rejected_max_attempts": "Tentativa excedida do PIN do cartão",
         "cc_rejected_blacklist": "Cartão rejeitado",
-        "cc_rejected_other_reason": "Cartão rejeitado"
-
+        "cc_rejected_other_reason": "Cartão rejeitado",
+        "rejected_by_regulations": "Pagamento rejeitado",
+        "rejected_by_bank": "Pagamento rejeitado",
+        "rejected_insufficient_data": "Pagamento rejeitado",
+        "cc_amount_rate_limit_exceeded": "Pagamento rejeitado",
+        "cc_rejected_high_risk": "Pagamento rejeitado",
+        "cc_rejected_card_error": "Pagamento rejeitado",
+        "cc_rejected_3ds_mandatory": "Pagamento rejeitado",
+        "bank_error": "Pagamento rejeitado"
     }
 
     ERROR = {

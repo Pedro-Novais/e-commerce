@@ -3,6 +3,7 @@ from .UserRoute import user_route
 from .ProductsRoute import product_route
 from .OrdersRoute import order_route
 from .CategoryRoute import category_route
+from .WebHook import webhook
 
 class Routes:
     def __init__(self, app):
@@ -13,3 +14,4 @@ class Routes:
         self.app.register_blueprint(product_route, url_prefix='/api/product')
         self.app.register_blueprint(order_route, url_prefix='/api/order')
         self.app.register_blueprint(category_route, url_prefix='/api/category')
+        self.app.register_blueprint(webhook, url_prefix='/api/webhook')

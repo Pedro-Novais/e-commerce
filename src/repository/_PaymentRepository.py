@@ -1,3 +1,5 @@
+from sqlalchemy.orm import joinedload
+
 from model.PaymentsModel import Payment
 from .Conn import ConnDatabase
 from ._BaseRepository import BaseRepository
@@ -10,6 +12,10 @@ class PaymentRepositoy(BaseRepository):
             DataModel=Payment,
             conn=self.conn
         )
+
+    def get_payment(self, id):
+        with self.conn.get_db_session() as db:
+            return db.query(Payment).filter(Payment.transaction_id == id).options(joinedload(Payment.order)).first()
 
     def create_payment(
             self,

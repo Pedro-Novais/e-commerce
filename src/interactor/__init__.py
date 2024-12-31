@@ -16,6 +16,7 @@ from .products._UpdateProduct import UpdateProduct
 from .reviews._CreateRating import CreateRating
 
 from .orders._CreateOrder import CreateOrder
+from .orders._WebHookOrder import WebHookOrder
 
 from .category._CreateCategory import CreateCategory
 from .category._UpdateCategory import UpdateCategory

@@ -35,7 +35,7 @@ class CreatePaymentService:
         status_detail = response["status_detail"] or ""
 
         code_msg = "APPROVED"
-        detail_msg = "Error"
+        detail_msg = "ERROR"
 
         if code in StatusCodeResponse.SUCCESS:
             if not code == "approved":

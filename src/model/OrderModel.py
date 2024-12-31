@@ -18,7 +18,7 @@ class Order(Base):
     shipment_tracking_number = Column(String(255))
     delivery_date = Column(DateTime)
     reason = Column(Text)
-    status = Column(String(50), default='PENDING')
+    status = Column(String(50), default='NEW')
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 

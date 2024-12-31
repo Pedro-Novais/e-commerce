@@ -20,7 +20,8 @@ from model import (
     CartModel,
     ShopModel,
     ProductVariantsModel,
-    CartItemModel
+    CartItemModel,
+    NotificationsModel
 )
 
 

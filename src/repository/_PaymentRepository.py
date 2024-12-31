@@ -13,9 +13,8 @@ class PaymentRepositoy(BaseRepository):
             conn=self.conn
         )
 
-    def get_payment(self, id):
-        with self.conn.get_db_session() as db:
-            return db.query(Payment).filter(Payment.transaction_id == id).options(joinedload(Payment.order)).first()
+    def get_payment(self, db, id):
+        return db.query(Payment).filter(Payment.transaction_id == id).options(joinedload(Payment.order)).first()
 
     def create_payment(
             self,
@@ -41,3 +40,14 @@ class PaymentRepositoy(BaseRepository):
         db.flush()
         db.refresh(new_payment)
         return new_payment
+    
+    def update_status_payment(
+            self,
+            db, 
+            payment,
+            status
+            ):
+        
+        payment.status = status
+
+        db.commit()

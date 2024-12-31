@@ -1,3 +1,5 @@
+from utils._I18nShared import I18nShared
+
 class BaseRepository:
     def __init__(self, DataModel, conn):
         self.Data = DataModel
@@ -16,7 +18,7 @@ class BaseRepository:
             data = db.query(self.Data).filter(self.Data.id == id).filter(self.Data.shop_name == shop).first()
 
             if not data:
-                return "AnyData"
+                return I18nShared.ANY_DATA
             
             db.delete(data)
             db.commit()

@@ -64,7 +64,7 @@ class CreateOrder:
                 order_id=new_order.id,
                 shop=self.shop,
                 payment_method=payment_data["payment_method_id"],
-                status=STATUS_ORDER,
+                status=I18n.STATUS_ORDER_NEW,
                 transaction_id=response.get("id")
             )
                 

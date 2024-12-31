@@ -1,4 +1,10 @@
 class I18n(object):
+    STATUS_ORDER_NEW = "NEW"
+    STATUS_ORDER_ACCEPTED = "ACCEPTED"
+    STATUS_ORDER_SHIPPED = "SHIPPED"
+    STATUS_ORDER_DELIVERED = "DELIVERED"
+    STATUS_ORDER_CANCELLED = "CANCELLED"
+
     SUCCESS_CREATE_ORDER = "Pedido criado com sucesso"
 
     NOT_FOUND_PRODUCTS_FROM_ORDER = "Itens adicionados no pedido não foram encontrados na loja"

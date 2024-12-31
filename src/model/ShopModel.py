@@ -26,4 +26,5 @@ class Shop(Base):
     categories = relationship("Category", back_populates="shop")
     addresses = relationship("Address", back_populates="shop")
     carts = relationship("Cart", back_populates="shop")
-    cart_items = relationship("CartItem", back_populates="shop")  
+    cart_items = relationship("CartItem", back_populates="shop")
+    notifications = relationship("Notification", back_populates="shop")   

@@ -25,6 +25,10 @@ class AdminCanotBeDeletedError(CustomError):
     def __init__(self, message: str = I18nShared.ADMIN_NOT_BE_DELETED):
         super().__init__(message, status_code=400)
 
+class PaymentPending(CustomError):
+    def __init__(self, message: str = I18nShared.PAYMENT_PENDING):
+        super().__init__(message, status_code=201)
+
 class OperationError(CustomError):
     def __init__(self, message: str = I18nShared.OPERATION_ERROR, error: str = ""):
         super().__init__(message, status_code=400, msg_error = error)

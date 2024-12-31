@@ -6,6 +6,7 @@ class I18n(object):
     STATUS_ORDER_CANCELLED = "CANCELLED"
 
     SUCCESS_CREATE_ORDER = "Pedido criado com sucesso"
+    SUCCESS_CREATE_ORDER_PIX = "Pedido criado com sucesso, pagamento pix pendente"
 
     NOT_FOUND_PRODUCTS_FROM_ORDER = "Itens adicionados no pedido não foram encontrados na loja"
     

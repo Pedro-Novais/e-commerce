@@ -7,8 +7,8 @@ from config.initialize_db import initialize_database
 def main():
      app = Flask(__name__, subdomain_matching=True)
 
-     app.config['SERVER_NAME'] = 'ngrok-free.app'
-     # app.config['SERVER_NAME'] = 'example.local:5000'
+     # app.config['SERVER_NAME'] = 'ngrok-free.app'
+     app.config['SERVER_NAME'] = 'example.local:5000'
      app.config['APPLICATION_ROOT'] = '/'
 
      CORS(

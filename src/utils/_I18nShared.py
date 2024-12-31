@@ -11,6 +11,8 @@ class I18nShared(object):
 
     OPERATION_ERROR = "Erro ao realziar operação"
 
+    PAYMENT_PENDING = "Pagamento pendente"
+
     ADMIN_NOT_BE_DELETED = "Usuário administrador, não pode ser excluído"
     
     USER_LOGGED = "Usuário possui sessão iniciada"

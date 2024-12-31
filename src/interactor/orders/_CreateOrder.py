@@ -15,6 +15,7 @@ from custom_exceptions._CustomExceptions import (
     NotFoundError,
     ParameterNotSend,
     OperationError,
+    PaymentPending
     )
 
 class CreateOrder:
@@ -75,10 +76,18 @@ class CreateOrder:
             new_order.reason = STATUS_DETAIL
             db.commit()
 
-            if not STATUS_OK == "APPROVED":
-                raise OperationError(I18n.ERROR_PROCESSING_PAYMENT.format(reason=STATUS_DETAIL))
+            if payment_data["payment_method_id"] in ["PIX", "pix"]:
+                data_reponse = {
+                    "qr_code": response.get("point_of_interaction").get("transaction_data").get("qr_code"),
+                    "qr_code_base64": response.get("point_of_interaction").get("transaction_data").get("qr_code_base64"),
+                    "ticket_url": response.get("point_of_interaction").get("transaction_data").get("ticket_url"),
+                }
+                return I18n.SUCCESS_CREATE_ORDER_PIX, data_reponse
             
-            return I18n.SUCCESS_CREATE_ORDER
+            if not STATUS_OK == "APPROVED":
+                raise PaymentPending(I18n.ERROR_PROCESSING_PAYMENT.format(reason=STATUS_DETAIL))
+            
+            return I18n.SUCCESS_CREATE_ORDER, {}
     
     def create_request_data(self):
         user_repo = UserRepository()
@@ -124,7 +133,7 @@ class CreateOrder:
         self.description = request.get("description", "")
 
         self.payment_method = request.get("payment_method", None)
-        if not self.payment_method or not self.payment_method in ["PIX", "visa", "master"]:
+        if not self.payment_method or not self.payment_method in ["pix", "visa", "master"]:
             raise ParameterNotSend()
         
         self.payer_email = None
@@ -164,6 +173,6 @@ class CreateOrder:
         self.installments = request.get("installments", 1)
 
     def verify_integrity_items(self, repo, items):
-        item_integrity = repo.get_items_from_order(items=items)
+        item_integrity = repo.get_items_from_order(items=items, shop=self.shop)
         if not item_integrity:
             raise NotFoundError(I18n.NOT_FOUND_PRODUCTS_FROM_ORDER)

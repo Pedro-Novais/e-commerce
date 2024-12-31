@@ -33,7 +33,8 @@ class StatusCodeResponse(object):
         "cc_rejected_high_risk": "Pagamento rejeitado",
         "cc_rejected_card_error": "Pagamento rejeitado",
         "cc_rejected_3ds_mandatory": "Pagamento rejeitado",
-        "bank_error": "Pagamento rejeitado"
+        "bank_error": "Pagamento rejeitado",
+        "pending_waiting_transfer": "Transferência de pagamento pendente"
     }
 
     ERROR = {

@@ -45,7 +45,6 @@ class WebHookOrder:
                 new_status=RESPONSE.get("status")                
                 )
 
-
             if not status_update:
                 raise
             else:

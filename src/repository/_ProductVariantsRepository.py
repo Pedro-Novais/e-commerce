@@ -13,11 +13,11 @@ class ProductVariantsRepository(BaseRepository):
             conn=self.conn
         )
 
-    def get_items_from_order(self, items: list[dict] = []):
+    def get_items_from_order(self, shop, items: list[dict] = []):
         with self.conn.get_db_session() as db:
             item_ids = [item["id"] for item in items]
 
-            existing_ids = db.execute(select(ProductVariants.id).where(ProductVariants.id.in_(item_ids))).scalars().all()
+            existing_ids = db.execute(select(ProductVariants.id).where(ProductVariants.id.in_(item_ids), ProductVariants.shop_name == shop)).scalars().all()
 
             existing_ids_set = set(existing_ids)
 

@@ -23,8 +23,8 @@ class OrderController:
 
     def create_order(self, user_id: int):
         try:
-            action = CreateOrder(user_id=user_id, shop_name=self.shop_name, request=self.request).action()
-            return jsonify({"msg": action}), 201
+            action, data = CreateOrder(user_id=user_id, shop_name=self.shop_name, request=self.request).action()
+            return jsonify({"msg": action, "data": data}), 201
         
         except (
             Exception,

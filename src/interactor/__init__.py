@@ -25,3 +25,4 @@ from .category._DeleteCategory import DeleteCategory
 
 from .shop._GetShop import GetShop
 from .shop._CreateShop import CreateShop
+from .shop._UpdateShop import UpdateShop

@@ -3,7 +3,8 @@ from middleware.error_handler import error_handler
 
 from interactor import (
     GetShop,
-    CreateShop
+    CreateShop,
+    UpdateShop,
 )
 
 from custom_exceptions._CustomExceptions import (
@@ -33,6 +34,14 @@ class ShopController:
         try:
             action = CreateShop(shop_name=self.shop_name, request=self.request).action()
             return jsonify(action), 201
+        
+        except Exception as e:
+            return error_handler(error=e)
+    
+    def update_shop(self):
+        try:
+            action = UpdateShop(shop_name=self.shop_name, request=self.request).action()
+            return jsonify({"msg":action}), 201
         
         except Exception as e:
             return error_handler(error=e)

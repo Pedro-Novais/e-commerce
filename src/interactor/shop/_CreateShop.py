@@ -1,7 +1,6 @@
 from flask import Request
 
 from ._I18n import I18n
-
 from repository._ShopRepository import ShopRepository
 
 from custom_exceptions._CustomExceptions import (

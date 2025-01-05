@@ -24,6 +24,5 @@ def create_shop(subdomain):
 @handle_subdomain
 @token_required
 @admin_required
-def update_shop(userId: int, subdomain: str):
-    pass
-    # return ShopController(request=request, shop_name=subdomain).post_shop(userId=userId)
+def update_shop(subdomain: str):
+    return ShopController(request=request, shop_name=subdomain).update_shop()

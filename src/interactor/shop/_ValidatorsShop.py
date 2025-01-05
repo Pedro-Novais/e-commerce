@@ -63,9 +63,29 @@ def validate_images(images: dict, validator: list):
             for banner in shop.images
         ]
     """
-    pass
+    if not images:
+        return
+    
+    if not images.get("logo", None):
+        validator.append("logo")
+    
+    if not images.get("favicon", None):
+        validator.append("favicon")
+    
+    if not images.get("banners", None):
+        validator.append("banners")
 
-def validate_color(color: dict, valdiate: list):
+    for image in images.banner:
+        if not image.get("url", None):
+            validator.append("url")
+        
+        if not image.get("position", None):
+            validator.append("position")
+        
+        if not image.get("product_link", None):
+            validator.append("product_link")    
+
+def validate_colors(color: dict, valdiate: list):
     """
         "backgroundPrimary": shop.colors.backgroundPrimary or None,
         "backgroundSecondary": shop.colors.backgroundSecondary or None,

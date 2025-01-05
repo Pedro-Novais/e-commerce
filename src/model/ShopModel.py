@@ -9,8 +9,11 @@ class Shop(Base):
     name = Column(String(255), nullable=False, unique=True)
     subdomain = Column(String(255), nullable=False, unique=True)
     company_infos = Column(JSON, nullable=False, default=list)
-    images = Column(JSON, default=list)
-    status = Column(BOOLEAN, default=True)
+    chat_infos = Column(JSON, nullable=True, default=list)
+    colors = Column(JSON, nullable=True, default=list)
+    address = Column(JSON, nullable=True, default=list)
+    images = Column(JSON, default=list, nullable=True)
+    is_active = Column(BOOLEAN, default=False)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 

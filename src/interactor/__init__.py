@@ -22,3 +22,6 @@ from .category._CreateCategory import CreateCategory
 from .category._UpdateCategory import UpdateCategory
 from .category._GetCategory import GetCategory
 from .category._DeleteCategory import DeleteCategory
+
+from .shop._GetShop import GetShop
+from .shop._CreateShop import CreateShop

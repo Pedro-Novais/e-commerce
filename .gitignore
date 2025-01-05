@@ -7,3 +7,5 @@ market_pay.py
 .env
 header_key.py
 /logs
+*/migatrions
+alembic.ini

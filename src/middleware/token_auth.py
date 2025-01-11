@@ -17,15 +17,16 @@ def token_required(f):
         if info_user_logged == I18nShared.USER_NOT_BE_LOGGED:
             pass
         else:
-            token = None
-            if 'Authorization' in request.headers:
-                auth_header = request.headers['Authorization']
-                token = auth_header.split(" ")[1] if len(auth_header.split(" ")) > 1 else None
+            token = request.cookies.get('authToken')
+
+            # if 'Authorization' in request.headers:
+            #     auth_header = request.headers['Authorization']
+            #     token = auth_header.split(" ")[1] if len(auth_header.split(" ")) > 1 else None
 
             if not token:
 
                 response = {
-                    'message': 'Acesso Negado!' 
+                    'msg': I18nShared.USER_NOT_BE_LOGGED
                 }
                 
                 return jsonify(response), 401
@@ -35,15 +36,15 @@ def token_required(f):
                 userId = data['user_id']
 
             except ExpiredSignatureError:
-                return jsonify({"error": "Token expirado. Por favor, faça login novamente."}), 401
+                return jsonify({"msg": I18nShared.USER_NOT_BE_LOGGED}), 401
             
             except InvalidTokenError:
-                return jsonify({"error": "Token inválido."}), 401
+                return jsonify({"msg": I18nShared.USER_NOT_BE_LOGGED}), 401
 
             except Exception as err:
 
                 response = {
-                    'message': 'Acesso Negado!',
+                    'msg': I18nShared.USER_NOT_BE_LOGGED,
                     'error': str(err) 
                 }
 

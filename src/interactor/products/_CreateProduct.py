@@ -33,11 +33,21 @@ class CreateProduct:
         if not self.variants:
             raise ParameterNotSend()
         
-        for variant in self.variants:
-            if not variant.get("price"):
-                raise ParameterNotSend()
-            if not isinstance(variant.get("price"), float):
-                raise FormatInvalidError()
+        # for variant in self.variants:
+        #     if not variant.get("price"):
+        #         raise ParameterNotSend()
+        #     if not isinstance(variant.get("price"), float):
+        #         raise FormatInvalidError()
+
+        self.slug = request.get("slug", None)
+        if not self.slug:
+            raise ParameterNotSend()
+        
+        self.price = request.get("price", None)
+        if not self.price:
+            raise ParameterNotSend()
+
+        self.image_default = request.get("image_default", None)
 
     def action(self):
         product_repo = ProductRepository()
@@ -51,6 +61,9 @@ class CreateProduct:
         create_product = product_repo.create_product(
             name=self.name,
             description=self.description,
+            slug = self.slug,
+            price=self.price,
+            image_default = self.image_default,
             category_id=self.category,
             is_digital=self.is_digital,
             custom_properties=self.custom_properties,

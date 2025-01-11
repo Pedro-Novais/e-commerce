@@ -7,7 +7,7 @@ class ProductVariants(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     product_id = Column(Integer, ForeignKey('products.id', ondelete="CASCADE"), nullable=False)
-    price = Column(DECIMAL(10, 2), nullable=False)
+    price = Column(DECIMAL(10, 2), nullable=True)
     color = Column(String(50), nullable=True)  
     size = Column(String(50), nullable=True) 
     images = Column(JSON, default=list)

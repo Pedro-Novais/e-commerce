@@ -1,4 +1,4 @@
-from flask import Response, Request, jsonify
+from flask import Response, Request, jsonify, make_response
 from middleware.error_handler import error_handler
 
 from interactor import (
@@ -26,6 +26,23 @@ class UserController:
         self.request = request
         self.shop_name = shop_name
     
+    def user_logged(self, userId: int) -> Response:
+        try:
+            response = {
+                    "msg": "Usuário possui sessão"
+                }
+            
+            if not userId:
+                response = {
+                    "msg": "Usuário não possui sessão"
+                }
+                return jsonify(response), 404
+            
+            return jsonify(response), 201
+        
+        except Exception as e:
+            return error_handler(error=e)
+
     def get_user(self, userId: int) -> Response:
         try:
             action = GetUser(userId=userId, shop_name=self.shop_name).action()
@@ -54,8 +71,17 @@ class UserController:
     
     def login_user(self) -> Response:
         try:
-            action = LoginUser(request=self.request, shop_name=self.shop_name).action()
-            return jsonify({"msg": action}), 200
+            token = LoginUser(request=self.request, shop_name=self.shop_name).action()
+            response = make_response(jsonify({"msg": "Usuário autenticado com sucesso", "token": token}), 201)
+            response.set_cookie(
+                'authToken',
+                token,
+                httponly=True,  
+                secure=False,    
+                samesite='Strict',  
+                max_age=60 * 60 
+            )
+            return response
         
         except (
             Exception,

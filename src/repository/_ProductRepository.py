@@ -30,6 +30,9 @@ class ProductRepository(BaseRepository):
             self,
             shop: str,
             name: str,
+            slug: str,
+            image_default: str,
+            price: float,
             description: str,
             category_id: int,
             custom_properties: list,
@@ -40,6 +43,9 @@ class ProductRepository(BaseRepository):
             new_product = Product(
                 shop_name = shop,
                 name = name,
+                slug = slug,
+                price = price,
+                image_default = image_default,
                 description = description,
                 is_digital = is_digital,
                 custom_properties = custom_properties,
@@ -53,7 +59,6 @@ class ProductRepository(BaseRepository):
             for product_variant in product_variants:
                 new_variants = ProductVariants(
                     product_id=new_product.id,
-                    price=product_variant.get("price"),
                     color=product_variant.get("color", None),
                     size=product_variant.get("size", None),
                     images=product_variant.get("images", []),

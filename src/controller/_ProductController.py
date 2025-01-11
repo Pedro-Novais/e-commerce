@@ -42,9 +42,9 @@ class ProductController:
 
     def get_products(self):
         try:
-            action = GetProducts(shop_name=self.shop_name).action()
-            return jsonify({"products": action}), 201
-        
+            products, category = GetProducts(shop_name=self.shop_name).action()
+            return jsonify({"products": products, "categories": category}), 201
+    
         except (
             Exception,
             NotFoundError,

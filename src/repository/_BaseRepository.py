@@ -5,9 +5,9 @@ class BaseRepository:
         self.Data = DataModel
         self.conn = conn
 
-    def get_all(self):
+    def get_all(self, shop):
         with self.conn.get_db_session() as db:
-            return db.query(self.Data).all()
+            return db.query(self.Data).filter(self.Data.shop_name == shop).all()
         
     def get_by_id(self, id: int, shop: str ):
         with self.conn.get_db_session() as db:

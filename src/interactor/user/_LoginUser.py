@@ -46,4 +46,4 @@ class LoginUser:
         
         new_token = generate_token(user_id=credential_save.id)
 
-        return "Token: {token}".format(token=new_token)
+        return new_token

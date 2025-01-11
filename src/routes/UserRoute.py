@@ -1,10 +1,18 @@
 from flask import Blueprint, request
 from middleware.token_auth import token_required
 from middleware.shop_identifier import handle_subdomain
+from middleware.user_logged import handle_user_logged
 
 from controller._UserController import UserController
 
 user_route = Blueprint('user', __name__)
+
+@user_route.route('/userlogged', subdomain="<subdomain>", methods=['GET'])
+@handle_subdomain
+@handle_user_logged
+@token_required
+def verify_user_logged(userId: int, subdomain: str): 
+    return UserController(request=request, shop_name=subdomain).user_logged(userId=userId)
 
 @user_route.route('/', subdomain="<subdomain>", methods=['GET'])
 @handle_subdomain

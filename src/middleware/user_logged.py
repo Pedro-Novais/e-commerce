@@ -9,12 +9,13 @@ def handle_user_logged(f):
     @wraps(f)
     def decorated(*args, **kwargs): 
         try:
-            token = None
+            # token = None 
+            token = request.cookies.get('authToken')
             info_user_logged = I18nShared.USER_LOGGED
 
-            if 'Authorization' in request.headers:
-                auth_header = request.headers['Authorization']
-                token = auth_header.split(" ")[1] if len(auth_header.split(" ")) > 1 else None
+            # if 'Authorization' in request.headers:
+            #     auth_header = request.headers['Authorization']
+                # token = auth_header.split(" ")[1] if len(auth_header.split(" ")) > 1 else None
 
             if not token:
                 info_user_logged = I18nShared.USER_NOT_BE_LOGGED

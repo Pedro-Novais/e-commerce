@@ -7,15 +7,15 @@ def error_handler(error):
 
         if error.msg_error:
             response = {
-                "message": str(error.message),
+                "msg": str(error.message),
                 "error": str(error.msg_error),
             }
         else:
             response = {
-                "message": str(error.message)
+                "msg": str(error.message)
             }
             
         return jsonify(response), error.status_code
     
-    response = {"message": "Internal server error", "error": str(error)}
+    response = {"msg": "Internal server error", "error": str(error)}
     return jsonify(response), 500

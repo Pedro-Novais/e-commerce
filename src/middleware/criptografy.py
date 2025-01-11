@@ -11,8 +11,8 @@ def generate_token(user_id: int):
     expiration_time = datetime.utcnow() + timedelta(hours=1)
 
     token = jwt.encode({
-        'user_id': user_id,
-        'exp': expiration_time
+        'user_id': user_id
+        # 'exp': expiration_time
     }, os.getenv("SECRET_KEY"), algorithm='HS256')
 
     return token

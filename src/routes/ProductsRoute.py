@@ -7,8 +7,8 @@ from controller._ProductController import ProductController
 
 product_route = Blueprint('product', __name__)
 
-@handle_subdomain
 @product_route.route('/', subdomain="<subdomain>", methods=['GET'])
+@handle_subdomain
 def get_products(subdomain):
     return ProductController(request=request, shop_name=subdomain).get_products()
 
